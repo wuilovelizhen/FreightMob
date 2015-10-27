@@ -1,0 +1,10 @@
+{
+  "name": "FreightMob",
+  "version": "1.0.0",
+  "description": "Freight Mob APP",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "bower": "1.5.2"
+  }
+}

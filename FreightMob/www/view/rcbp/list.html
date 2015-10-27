@@ -1,0 +1,21 @@
+<ion-view title="List">
+	<ion-header-bar class="bar-positive">
+		<button class="button button-icon icon ion-navicon" ng-click="returnMain()"></button>
+        <div class="item-input-inset" style="width:90%;">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input id="txt-rcbp-list-BusinessPartyName" type="search" placeholder="Search Business Party Name" style="width:100%;" ng-model="Rcbp.BusinessPartyName">
+            </label>
+        </div>
+	</ion-header-bar>
+	<ion-content>
+        <ion-list id="div-rcbp-list" tabindex="-1">
+            <ion-item ng-repeat="Rcbp1 in Rcbp1s" id="Rcbp1-{{ Rcbp1.Index }}" class="item item-avatar" ng-click="GoToDetail(Rcbp1)">
+                <img src="./img/unknown.png">
+                <h2><span ng-bind="Rcbp1.BusinessPartyName"></span></h2>
+                <p><i class="iconfont icon-phone"></i>&nbsp;&nbsp;<span ng-bind="Rcbp1.Telephone"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="iconfont icon-fax"></i>&nbsp;&nbsp;<span ng-bind="Rcbp1.Fax"></span></p>
+                <p><i class="iconfont icon-pincity01"></i>&nbsp;&nbsp;<span ng-bind="Rcbp1.CityCode"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="iconfont icon-contact"></i>&nbsp;&nbsp;<span ng-bind="Rcbp1.ContactName1"></span></p>
+            </ion-item>
+        </ion-list>
+	</ion-content>
+</ion-view>

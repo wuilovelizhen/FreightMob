@@ -282,8 +282,6 @@ angular.module('MobileAPP.controllers', [
     .controller('RcbpDetailCtrl',
         ['$scope', '$stateParams', '$state', '$http', '$timeout', '$ionicHistory', '$ionicLoading', '$ionicPopup', '$ionicModal', 'JsonServiceClient',
         function ($scope, $stateParams, $state, $http, $timeout, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, JsonServiceClient) {
-            $scope.shouldShowDelete = false;
-            $scope.listCanSwipe = true;
             $scope.rcbpDetail = {};
             $scope.rcbp3Detail = {};
             $scope.rcbpDetail.TrxNo = $stateParams.TrxNo;

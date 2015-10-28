@@ -65,15 +65,11 @@
             <div class="item item-divider">
                 Contact Info
             </div>
-            <ion-list show-delete="shouldShowDelete" can-swipe="listCanSwipe">
-                <ion-item ng-repeat="rcbp3 in rcbp3s" class="item-remove-animate item-icon-right">
+            <ion-list>
+                <ion-item ng-repeat="rcbp3 in rcbp3s" class="item-remove-animate item-icon-right" ng-click="openModal(rcbp3)">
                     <p style="font-size:0.8em;"><i class="iconfont icon-name"></i>&nbsp;&nbsp;<span ng-bind="rcbp3.ContactName" style="font-size:1.2em;"></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="iconfont icon-title1"></i>&nbsp;&nbsp;<span ng-bind="rcbp3.Title" style="font-size:1.2em;"></span></p>
                     <p style="font-size:0.8em;"><i class="iconfont icon-phone2"></i>&nbsp;&nbsp;<span ng-bind="rcbp3.Handphone" style="font-size:1.2em;"></span></p>
                     <p style="font-size:0.8em;"><i class="iconfont icon-email"></i>&nbsp;&nbsp;<span ng-bind="rcbp3.Email" style="font-size:1.2em;"></span></p>
-                    <i class="icon ion-android-arrow-dropleft"></i>
-                    <ion-option-button class="button-calm" ng-click="openModal(rcbp3)">
-                        Detail
-                    </ion-option-button>
                 </ion-item>
             </ion-list>
 		</div>

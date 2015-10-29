@@ -1,27 +1,12 @@
-angular.module('MobileAPP.controllers', [
-    'ionic',
-    'ngCordova.plugins.dialogs',
-    'ngCordova.plugins.toast',
-    'ngCordova.plugins.appVersion',
-    'ngCordova.plugins.file',
-    'ngCordova.plugins.fileTransfer',
-    'ngCordova.plugins.fileOpener2',
-    'ngCordova.plugins.datePicker',
-    'ngCordova.plugins.barcodeScanner',
-    'ui.select',
-    'MobileAPP.directives',
-    'MobileAPP.services'
-])
-
-    .controller('LoadingCtrl',
+app.controller('LoadingCtrl',
         ['$state', '$timeout',
         function ($state, $timeout) {
             $timeout(function () {
                 $state.go('login', { 'CheckUpdate': 'N' }, { reload: true });
             }, 2500);
-        }])
+        }]);
 
-    .controller('LoginCtrl',
+app.controller('LoginCtrl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaToast', '$cordovaAppVersion', 'JsonServiceClient', 
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, $ionicLoading, $cordovaToast, $cordovaAppVersion, JsonServiceClient) {
             $scope.logininfo = {};
@@ -40,7 +25,7 @@ angular.module('MobileAPP.controllers', [
             if ($stateParams.CheckUpdate === 'Y') {
                 var url = strWebServiceURL + strBaseUrl + '/update.json';
                 $http.get(url)
-                    .success(function (res) {
+                .success(function (res) {
                         var serverAppVersion = res.version;
                         $cordovaAppVersion.getVersionNumber().then(function (version) {
                             if (version != serverAppVersion) {
@@ -48,12 +33,12 @@ angular.module('MobileAPP.controllers', [
                             }
                         });
                     })
-                    .error(function (res) {});
+                .error(function (res) {});
             }
             $scope.checkUpdate = function () {
                 var url = strWebServiceURL + strBaseUrl + '/update.json';
                 $http.get(url)
-                    .success(function (res) {
+                .success(function (res) {
                         var serverAppVersion = res.version;
                         $cordovaAppVersion.getVersionNumber().then(function (version) {
                             if (version != serverAppVersion) {
@@ -69,7 +54,7 @@ angular.module('MobileAPP.controllers', [
                             }
                         });
                     })
-                    .error(function (res) {
+                .error(function (res) {
                         var alertPopup = $ionicPopup.alert({
                             title: "Connect Update Server Error!",
                             okType: 'button-assertive'
@@ -122,9 +107,9 @@ angular.module('MobileAPP.controllers', [
                 };
                 JsonServiceClient.postToService(strUri, jsonData, onSuccess, onError);
             };
-        }])
+        }]);
 
-    .controller('SettingCtrl',
+app.controller('SettingCtrl',
         ['$scope', '$state', '$timeout', '$ionicLoading', '$ionicPopup', '$cordovaToast', '$cordovaFile',
         function ($scope, $state, $timeout, $ionicLoading, $ionicPopup, $cordovaToast, $cordovaFile) {
             $scope.Setting = {};
@@ -151,32 +136,32 @@ angular.module('MobileAPP.controllers', [
                 var directory = "TmsApp";
                 var file = directory + "/Config.txt";
                 $cordovaFile.writeFile(path, file, data, true)
-                    .then(function (success) {
-                        $state.go('login', { 'CheckUpdate': 'Y' }, { reload: true });
-                    }, function (error) {
-                        $cordovaToast.showShortBottom(error);
-                    });
+                .then(function (success) {
+                    $state.go('login', { 'CheckUpdate': 'Y' }, { reload: true });
+                }, function (error) {
+                    $cordovaToast.showShortBottom(error);
+                });
             };
             $scope.delSetting = function () {
                 var path = cordova.file.externalRootDirectory;
                 var directory = "TmsApp";
                 var file = directory + "/Config.txt";
                 $cordovaFile.removeFile(path, file)
-                    .then(function (success) {
-                        var alertPopup = $ionicPopup.alert({
-                            title: 'Delete Config File Success.',
-                            okType: 'button-calm'
-                        });
-                        $timeout(function () {
-                            alertPopup.close();
-                        }, 2500);
-                    }, function (error) {
-                        $cordovaToast.showShortBottom(error);
+                .then(function (success) {
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Delete Config File Success.',
+                        okType: 'button-calm'
                     });
+                    $timeout(function () {
+                        alertPopup.close();
+                    }, 2500);
+                }, function (error) {
+                    $cordovaToast.showShortBottom(error);
+                });
             };
-        }])
+        }]);
 
-    .controller('UpdateCtrl',
+app.controller('UpdateCtrl',
         ['$scope', '$stateParams', '$state', '$timeout', '$ionicLoading', '$cordovaToast', '$cordovaFile', '$cordovaFileTransfer', '$cordovaFileOpener2',
         function ($scope, $stateParams, $state, $timeout, $ionicLoading, $cordovaToast, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2) {
             $scope.strVersion = $stateParams.Version;
@@ -228,14 +213,18 @@ angular.module('MobileAPP.controllers', [
                     $state.go('login', { 'CheckUpdate': 'N' }, { reload: true });
                 }
             };
-        }])
+        }]);
 
-    .controller('MainCtrl',
+app.controller('MainCtrl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', '$cordovaBarcodeScanner', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, $cordovaBarcodeScanner, JsonServiceClient) {
             $scope.GoToRcbp = function () {
                 $state.go('rcbpList', {}, { reload: true });
             };
+            $scope.GoToPa = function () {
+                $state.go('paymentApproval', {}, { reload: true });
+            };
+            /*
             $scope.scanBarcode = function () {
                 $cordovaBarcodeScanner.scan().then(function (imageData) {
                     alert(imageData.text);
@@ -243,9 +232,10 @@ angular.module('MobileAPP.controllers', [
                     alert(error);
                 });
             };
-        }])
+            */
+        }]);
 
-    .controller('RcbpListCtrl',
+app.controller('RcbpListCtrl',
         ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaDialogs', 'JsonServiceClient',
         function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $ionicLoading, $cordovaDialogs, JsonServiceClient) {
             $scope.Rcbp = {};
@@ -254,7 +244,7 @@ angular.module('MobileAPP.controllers', [
                 $state.go('main', {}, { reload: true });
             };
             $scope.GoToDetail = function (Rcbp1) {
-                $state.go('rcbpDetail', { 'TrxNo':Rcbp1.TrxNo }, { reload: true });
+                $state.go('rcbpDetail', { 'TrxNo': Rcbp1.TrxNo }, { reload: true });
             };
             $('#txt-rcbp-list-BusinessPartyName').on('keydown', function (e) {
                 if (e.which === 9 || e.which === 13) {
@@ -277,9 +267,9 @@ angular.module('MobileAPP.controllers', [
                 JsonServiceClient.getFromService(strUri, onSuccess);
             };
             getRcbp1(null);
-        }])
+        }]);
 
-    .controller('RcbpDetailCtrl',
+app.controller('RcbpDetailCtrl',
         ['$scope', '$stateParams', '$state', '$http', '$timeout', '$ionicHistory', '$ionicLoading', '$ionicPopup', '$ionicModal', 'JsonServiceClient',
         function ($scope, $stateParams, $state, $http, $timeout, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, JsonServiceClient) {
             $scope.rcbpDetail = {};
@@ -345,12 +335,49 @@ angular.module('MobileAPP.controllers', [
             $scope.closeModal = function () {
                 $scope.modal.hide();
             };
-        }])
+        }]);
 
-    .controller('RcbpDetailEditCtrl',
+app.controller('RcbpDetailEditCtrl',
         ['$scope', '$stateParams', '$state', '$http', '$timeout', '$ionicLoading', '$ionicPopup', 'JsonServiceClient',
         function ($scope, $stateParams, $state, $http, $timeout, $ionicLoading, $ionicPopup, JsonServiceClient) {
             $scope.returnDetail = function () {
                 //$state.go('rcbpDetail', {}, { reload: true });
             };
-        }])
+        }]);
+
+app.controller('PaymentApprovalCtl', ['$scope','$http',function ($scope, $http) {
+    $scope.selectAll = function () {
+    };
+    $scope.clearAll = function () {
+    };
+    $scope.StatusCode = { text: "USE", checked: false };
+    $scope.statusChange = function () {
+        if ($scope.StatusCode.checked) {
+            $scope.StatusCode.text = "APP";
+        } else {
+            $scope.StatusCode.text = "USE";
+        }
+    };
+
+    $scope.data = {
+        showReorder: false
+    };
+    $scope.items = [
+      { id: 0 },
+      { id: 1 },
+      { id: 2 },
+      { id: 3 },
+      { id: 4 },
+      { id: 5 },
+      { id: 6 },
+      { id: 7 },
+      { id: 8 },
+      { id: 9 },
+      { id: 10 },
+      { id: 11 },
+      { id: 12 },
+      { id: 13 },
+      { id: 14 },
+      { id: 15 }
+    ];
+}]);

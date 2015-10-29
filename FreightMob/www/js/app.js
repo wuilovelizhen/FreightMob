@@ -1,8 +1,17 @@
 var app = angular.module('MobileAPP', [
     'ionic',
     'ngCordova.plugins.toast',
+    'ngCordova.plugins.dialogs',
+    'ngCordova.plugins.toast',
+    'ngCordova.plugins.appVersion',
     'ngCordova.plugins.file',
-    'MobileAPP.controllers'
+    'ngCordova.plugins.fileTransfer',
+    'ngCordova.plugins.fileOpener2',
+    'ngCordova.plugins.datePicker',
+    'ngCordova.plugins.barcodeScanner',
+    'ui.select',
+    'MobileAPP.directives',
+    'MobileAPP.services'
 ])
 
 app.run(['$ionicPlatform', '$rootScope', '$state', '$location', '$timeout', '$ionicPopup', '$ionicHistory', '$ionicLoading', '$cordovaToast', '$cordovaFile',
@@ -123,60 +132,56 @@ app.run(['$ionicPlatform', '$rootScope', '$state', '$location', '$timeout', '$io
 app.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
         $stateProvider
-
-          .state('loading', {
-              url: '/loading',
-              cache: 'false',
-              templateUrl: 'view/loading.html',
-              controller: 'LoadingCtrl'
-          })
-
-          .state('login', {
-              url: '/login/:CheckUpdate',
-              cache: 'false',
-              templateUrl: 'view/login.html',
-              controller: 'LoginCtrl'
-          })
-
-          .state('setting', {
-              url: '/setting',
-              cache: 'false',
-              templateUrl: 'view/setting.html',
-              controller: 'SettingCtrl'
-          })
-
-          .state('update', {
-              url: '/update/:Version',
-              cache: 'false',
-              templateUrl: 'view/update.html',
-              controller: 'UpdateCtrl'
-          })
-
-          .state('main', {
-              url: "/main",
-              cache: 'false',
-              templateUrl: "view/main.html",
-              controller: 'MainCtrl'
-          })
-
-          .state('rcbpList', {
-              url: '/list',
-              templateUrl: 'view/rcbp/list.html',
-              controller: 'RcbpListCtrl'
-          })
-
-          .state('rcbpDetail', {
-              url: '/detail/:TrxNo',
-              templateUrl: 'view/rcbp/detail.html',
-              controller: 'RcbpDetailCtrl'
-          })
-
-          .state('rcbpDetailEdit', {
-              url: '/detail/Edit/:TrxNo',
-              templateUrl: 'view/rcbp/detail-Edit.html',
-              controller: 'RcbpDetailEditCtrl'
-          });
-
+            .state('loading', {
+                url: '/loading',
+                cache: 'false',
+                templateUrl: 'view/loading.html',
+                controller: 'LoadingCtrl'
+            })
+            .state('login', {
+                url: '/login/:CheckUpdate',
+                cache: 'false',
+                templateUrl: 'view/login.html',
+                controller: 'LoginCtrl'
+            })
+            .state('setting', {
+                url: '/setting',
+                cache: 'false',
+                templateUrl: 'view/setting.html',
+                controller: 'SettingCtrl'
+            })
+            .state('update', {
+                url: '/update/:Version',
+                cache: 'false',
+                templateUrl: 'view/update.html',
+                controller: 'UpdateCtrl'
+            })
+            .state('main', {
+                url: "/main",
+                cache: 'false',
+                templateUrl: "view/main.html",
+                controller: 'MainCtrl'
+            })
+            .state('rcbpList', {
+                url: '/list',
+                templateUrl: 'view/rcbp/list.html',
+                controller: 'RcbpListCtrl'
+            })
+            .state('rcbpDetail', {
+                url: '/detail/:TrxNo',
+                templateUrl: 'view/rcbp/detail.html',
+                controller: 'RcbpDetailCtrl'
+            })
+            .state('rcbpDetailEdit', {
+                url: '/detail/Edit/:TrxNo',
+                templateUrl: 'view/rcbp/detail-Edit.html',
+                controller: 'RcbpDetailEditCtrl'
+            })
+            .state('paymentApproval', {
+                url: '/pv',
+                templateUrl: 'view/pa/detail.html',
+                controller: 'PaymentApprovalCtl'
+            });
         $urlRouterProvider.otherwise('/login/N');
     }]);
 

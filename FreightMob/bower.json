@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "angular-ui-grid": "~3.0.7",
     "bootstrap": "~3.3.5",
     "html5-boilerplate": "~5.2.0",
     "ionic": "~1.0.1",

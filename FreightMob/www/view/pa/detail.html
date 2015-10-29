@@ -1,0 +1,48 @@
+﻿<ion-view title="Detail">
+    <ion-header-bar class="bar-positive" align-title="center">
+        <button class="button button-icon icon ion-navicon" ng-click="returnList()"></button>
+        <div class="h1 title">Payment Approval</div>
+    </ion-header-bar>
+    <ion-pane style="margin-top:44px; height:50px; overflow:visible;">
+        <div class="list item">
+            <div class="row row-center" id="div-list-rcbp">
+                    <div class="col col-33" style="text-align:center;">
+                        <select>
+                            <option selected>Voucher No</option>
+                            <option>Vendor Name</option>
+                        </select>
+                    </div>
+                    <div class="col col-50">
+                        <ui-select ng-model="Rcbp1.selected"
+                                   theme="bootstrap"
+                                   reset-search-input="true"
+                                   on-select="ShowImgr1(Rcbp1.selected.BusinessPartyCode)"
+                                   autofocus="true">
+                            <ui-select-match allow-clear="true" placeholder="Enter to search..." style="overflow:hidden;">{{$select.selected.BusinessPartyCode}}</ui-select-match>
+                            <ui-select-choices repeat="Rcbp1 in Rcbp1s track by $index"
+                                               refresh="refreshRcbp1($select.search)"
+                                               refresh-delay="0">
+                                <div ng-bind-html="Rcbp1.BusinessPartyName | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                <ion-toggle ng-model="StatusCode.checked" ng-change="statusChange()">
+                </ion-toggle>
+            </div>
+        </div>
+    </ion-pane>
+    <ion-content style="margin-top:50px;">
+        <div class="item">
+            <ion-checkbox ng-model="selectAll" ng-change="data.showReorder = !data.showReorder">Select All</ion-checkbox>
+        </div>
+        <ion-list show-reorder="data.showReorder">       
+            <ion-checkbox ng-repeat="item in items" ng-model="select"> Item {{ item.id }}</ion-checkbox>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar style="padding:1px;">
+        <div class="button-bar">
+            <button class="button button-positive" style="line-height: 44px;">Approval</button>
+            <button class="button button-light" style="line-height: 44px;" ng-click="returnMain()">Cancel</button>
+        </div>
+    </ion-footer-bar>
+</ion-view>

@@ -210,8 +210,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-plugins
-merges
-platforms
-lib
-res
+FreightMob/merges
+FreightMob/platforms
+FreightMob/plugins
+FreightMob/res
+FreightMob/www/lib

@@ -5,6 +5,6 @@
   "dependencies": {
   },
   "devDependencies": {
-    "bower": "1.5.2"
+    "bower": "^1.6.5"
   }
 }

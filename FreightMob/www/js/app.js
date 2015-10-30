@@ -1,5 +1,6 @@
 var app = angular.module('MobileAPP', [
     'ionic',
+	'ionic-material',
     'ngCordova.plugins.toast',
     'ngCordova.plugins.dialogs',
     'ngCordova.plugins.toast',

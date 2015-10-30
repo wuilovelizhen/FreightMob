@@ -4,8 +4,10 @@
     "bootstrap": "~3.3.5",
     "html5-boilerplate": "~5.2.0",
     "ionic": "~1.0.1",
+    "ionic-material": "~0.4.2",
     "jquery": "~2.1.4",
     "ngCordova": "~0.1.19-alpha",
+    "robotodraft": "~1.1.0",
     "ui-select": "angular-ui-select#~0.12.1"
   },
   "devDependencies": {

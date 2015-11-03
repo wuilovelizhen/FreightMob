@@ -1,4 +1,21 @@
-app.controller('LoadingCtrl',
+var appControllers = angular.module('MobileAPP.controllers', [
+    'ionic',
+	'ionic-material',
+    'ngCordova.plugins.toast',
+    'ngCordova.plugins.dialogs',
+    'ngCordova.plugins.toast',
+    'ngCordova.plugins.appVersion',
+    'ngCordova.plugins.file',
+    'ngCordova.plugins.fileTransfer',
+    'ngCordova.plugins.fileOpener2',
+    'ngCordova.plugins.datePicker',
+    'ngCordova.plugins.barcodeScanner',
+    'ui.select',
+    'MobileAPP.directives',
+    'MobileAPP.services'
+]);
+
+appControllers.controller('LoadingCtrl',
         ['$state', '$timeout',
         function ($state, $timeout) {
             $timeout(function () {
@@ -6,7 +23,7 @@ app.controller('LoadingCtrl',
             }, 2500);
         }]);
 
-app.controller('LoginCtrl',
+appControllers.controller('LoginCtrl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaToast', '$cordovaAppVersion', 'JsonServiceClient', 
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, $ionicLoading, $cordovaToast, $cordovaAppVersion, JsonServiceClient) {
             $scope.logininfo = {};
@@ -109,7 +126,7 @@ app.controller('LoginCtrl',
             };
         }]);
 
-app.controller('SettingCtrl',
+appControllers.controller('SettingCtrl',
         ['$scope', '$state', '$timeout', '$ionicLoading', '$ionicPopup', '$cordovaToast', '$cordovaFile',
         function ($scope, $state, $timeout, $ionicLoading, $ionicPopup, $cordovaToast, $cordovaFile) {
             $scope.Setting = {};
@@ -161,7 +178,7 @@ app.controller('SettingCtrl',
             };
         }]);
 
-app.controller('UpdateCtrl',
+appControllers.controller('UpdateCtrl',
         ['$scope', '$stateParams', '$state', '$timeout', '$ionicLoading', '$cordovaToast', '$cordovaFile', '$cordovaFileTransfer', '$cordovaFileOpener2',
         function ($scope, $stateParams, $state, $timeout, $ionicLoading, $cordovaToast, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2) {
             $scope.strVersion = $stateParams.Version;
@@ -215,15 +232,25 @@ app.controller('UpdateCtrl',
             };
         }]);
 
-app.controller('MainCtrl',
-        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', '$cordovaBarcodeScanner', 'JsonServiceClient',
-        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, $cordovaBarcodeScanner, JsonServiceClient) {
+appControllers.controller('MainCtrl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', '$cordovaBarcodeScanner', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, $cordovaBarcodeScanner, JsonServiceClient) {
             $scope.GoToRcbp = function () {
-                $state.go('rcbpList', {}, { reload: true });
+                $state.go('contacts', {}, { reload: true });
             };
             $scope.GoToPa = function () {
                 $state.go('paymentApproval', {}, { reload: true });
             };
+            $scope.GoToVS = function () {
+                $state.go('vesselSchedule', {}, { reload: true });
+            };
+            $scope.GoToSS = function () {
+                $state.go('shipmentStatus', {}, { reload: true });
+            };
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+                ionicMaterialMotion.ripple();
+            }, 0);
             /*
             $scope.scanBarcode = function () {
                 $cordovaBarcodeScanner.scan().then(function (imageData) {
@@ -235,16 +262,16 @@ app.controller('MainCtrl',
             */
         }]);
 
-app.controller('RcbpListCtrl',
-        ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaDialogs', 'JsonServiceClient',
-        function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $ionicLoading, $cordovaDialogs, JsonServiceClient) {
+appControllers.controller('ContactsCtrl',
+        ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaDialogs', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $ionicLoading, $cordovaDialogs, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.Rcbp = {};
             $scope.Rcbp.BusinessPartyName = "";
             $scope.returnMain = function () {
                 $state.go('main', {}, { reload: true });
             };
             $scope.GoToDetail = function (Rcbp1) {
-                $state.go('rcbpDetail', { 'TrxNo': Rcbp1.TrxNo }, { reload: true });
+                $state.go('contactsDetail', { 'TrxNo': Rcbp1.TrxNo }, { reload: true });
             };
             $('#txt-rcbp-list-BusinessPartyName').on('keydown', function (e) {
                 if (e.which === 9 || e.which === 13) {
@@ -258,8 +285,12 @@ app.controller('RcbpListCtrl',
                     strUri = strUri + "/" + $scope.Rcbp.BusinessPartyName;
                 }
                 var onSuccess = function (response) {
-                    $scope.Rcbp1s = response.data.results;
                     $ionicLoading.hide();
+                    $scope.Rcbp1s = response.data.results;
+                    $timeout(function () {
+                        ionicMaterialMotion.blinds();
+                        ionicMaterialInk.displayEffect();
+                    }, 0);
                 };
                 var onError = function (response) {
                     $ionicLoading.hide();
@@ -269,22 +300,17 @@ app.controller('RcbpListCtrl',
             getRcbp1(null);
         }]);
 
-app.controller('RcbpDetailCtrl',
+appControllers.controller('ContactsDetailCtrl',
         ['$scope', '$stateParams', '$state', '$http', '$timeout', '$ionicHistory', '$ionicLoading', '$ionicPopup', '$ionicModal', 'JsonServiceClient',
         function ($scope, $stateParams, $state, $http, $timeout, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, JsonServiceClient) {
             $scope.rcbpDetail = {};
             $scope.rcbp3Detail = {};
             $scope.rcbpDetail.TrxNo = $stateParams.TrxNo;
             $scope.returnList = function () {
-                if ($ionicHistory.backView()) {
-                    $ionicHistory.goBack();
-                }
-                else {
-                    $state.go('rcbpList', {}, {});
-                }
+                $state.go('contacts', {}, {});
             };
             $scope.GoToDetailEdit = function () {
-                $state.go('rcbpDetailEdit', {}, { reload: true });
+                $state.go('contactsDetailEdit', {}, { reload: true });
             };
             $scope.blnContainNameCard = function (rcbp3) {
                 if (typeof (rcbp3) == "undefined") return false;
@@ -337,47 +363,215 @@ app.controller('RcbpDetailCtrl',
             };
         }]);
 
-app.controller('RcbpDetailEditCtrl',
+appControllers.controller('ContactsDetailEditCtrl',
         ['$scope', '$stateParams', '$state', '$http', '$timeout', '$ionicLoading', '$ionicPopup', 'JsonServiceClient',
         function ($scope, $stateParams, $state, $http, $timeout, $ionicLoading, $ionicPopup, JsonServiceClient) {
             $scope.returnDetail = function () {
-                //$state.go('rcbpDetail', {}, { reload: true });
+                $state.go('contactsDetail', {}, { reload: true });
             };
         }]);
 
-app.controller('PaymentApprovalCtl', ['$scope','$http',function ($scope, $http) {
-    $scope.selectAll = function () {
-    };
-    $scope.clearAll = function () {
-    };
-    $scope.StatusCode = { text: "USE", checked: false };
-    $scope.statusChange = function () {
-        if ($scope.StatusCode.checked) {
-            $scope.StatusCode.text = "APP";
-        } else {
-            $scope.StatusCode.text = "USE";
-        }
-    };
+appControllers.controller('PaymentApprovalCtl',
+        ['$scope', '$http', '$timeout', '$state', '$ionicHistory', 'ionicMaterialInk', 'ionicMaterialMotion',
+        function ($scope, $http, $timeout, $state, $ionicHistory, ionicMaterialInk, ionicMaterialMotion) {
+            $scope.returnList = function () {
+                if ($ionicHistory.backView()) {
+                    $ionicHistory.goBack();
+                }
+                else {
+                    $state.go('main', {}, {});
+                }
+            };
+            $scope.returnMain = function () {
+                $state.go('main', {}, { reload: true });
+            };
+            $scope.selectAll = function () {
+            };
+            $scope.clearAll = function () {
+            };
+            $scope.StatusCode = { text: "USE", checked: false };
+            $scope.statusChange = function () {
+                if ($scope.StatusCode.checked) {
+                    $scope.StatusCode.text = "APP";
+                } else {
+                    $scope.StatusCode.text = "USE";
+                }
+            };
+            $scope.data = {
+                showReorder: false
+            };
+            $scope.items = [
+                { id: 0 },
+                { id: 1 },
+                { id: 2 },
+                { id: 3 },
+                { id: 4 },
+                { id: 5 },
+                { id: 6 },
+                { id: 7 },
+                { id: 8 },
+                { id: 9 },
+                { id: 10 },
+                { id: 11 },
+                { id: 12 },
+                { id: 13 },
+                { id: 14 },
+                { id: 15 }
+            ];
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+                ionicMaterialMotion.blinds();
+            }, 0);
+        }]);
 
-    $scope.data = {
-        showReorder: false
-    };
-    $scope.items = [
-      { id: 0 },
-      { id: 1 },
-      { id: 2 },
-      { id: 3 },
-      { id: 4 },
-      { id: 5 },
-      { id: 6 },
-      { id: 7 },
-      { id: 8 },
-      { id: 9 },
-      { id: 10 },
-      { id: 11 },
-      { id: 12 },
-      { id: 13 },
-      { id: 14 },
-      { id: 15 }
-    ];
-}]);
+appControllers.controller('VesselScheduleCtl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.returnMain = function () {
+                $state.go('main', {}, { reload: true });
+            };
+            $scope.Rcsv1s = [
+                { PortCode: 'All', PortName: 'ALL' },
+                { PortCode: 'DEAAH', PortName: 'AACHEN' },
+                { PortCode: 'DKAAL', PortName: 'AALBORG' },
+                { PortCode: 'JPABA', PortName: 'ABASHIRI, HOKKAIDO' },
+                { PortCode: 'PGABW', PortName: 'ABAU' },
+                { PortCode: 'DEABH', PortName: 'ABBEHAUSEN' },
+                { PortCode: 'DEABF', PortName: 'ABBENFLETH' },
+                { PortCode: 'FRABB', PortName: 'ABBEVILLE' },
+                { PortCode: 'YEEAB', PortName: 'ABBSE' },
+                { PortCode: 'SAAAK', PortName: 'ABU AL KHOOSH' },
+                { PortCode: 'AEAUH', PortName: 'ABU DHABI' },
+                { PortCode: 'FIAHV', PortName: 'AHVENANMAA MUUT' },
+                { PortCode: 'AEAJM', PortName: 'AJMAN' },
+                { PortCode: 'GAAKE', PortName: 'AKIENI' },
+                { PortCode: 'SAAHA', PortName: 'AL HADA' },
+                { PortCode: 'JMALP', PortName: 'ALLIGATOR POND' },
+                { PortCode: 'DEAMR', PortName: 'AMRUN I.' },
+                { PortCode: 'PFAAA', PortName: 'ANAAB' },
+                { PortCode: 'DZAAE', PortName: 'ANNABA (FORMERLY BONE)' },
+                { PortCode: 'USAAF', PortName: 'APALACHICOLA, FL' },
+                { PortCode: 'DEAPE', PortName: 'APEN' },
+                { PortCode: 'BRAAI', PortName: 'ARRAIAS' },
+                { PortCode: 'AAAAA', PortName: 'ASASASAS' },
+                { PortCode: 'DEASS', PortName: 'ASSEL' },
+                { PortCode: 'SABDN', PortName: 'BADANA' },
+                { PortCode: 'THBKK', PortName: 'BANGKOK' },
+                { PortCode: 'GABGB', PortName: 'BOOUE' },
+                { PortCode: 'AOCAB', PortName: 'CABINDA' },
+                { PortCode: 'ECCUE', PortName: 'CUENCA' },
+                { PortCode: 'AUDAA', PortName: 'DARRA, QL' },
+                { PortCode: 'AEDAS', PortName: 'DAS ISLAND' },
+                { PortCode: 'BDDAC', PortName: 'DHAKA' },
+                { PortCode: 'AEDXB', PortName: 'DUBAI' },
+                { PortCode: 'AEFAT', PortName: 'FATEH TERMINAL' },
+                { PortCode: 'AEFJR', PortName: 'FUJAIRAH' },
+                { PortCode: 'SGSIN', PortName: 'GGGGG' },
+                { PortCode: 'SEHAD', PortName: 'HALMSTAD' },
+                { PortCode: 'HKHKG', PortName: 'HONG KONG' },
+                { PortCode: 'IDJKT', PortName: 'JAKARTA' },
+                { PortCode: 'AEJEA', PortName: 'JEBEL ALI' },
+                { PortCode: 'AEJED', PortName: 'JEBEL DHANNA' },
+                { PortCode: 'TWKEL', PortName: 'KEELUNG' },
+                { PortCode: 'AEKLF', PortName: 'KHOR AL FAKKAN' },
+                { PortCode: 'BDKHL', PortName: 'KHULNA' },
+                { PortCode: 'HKKWN', PortName: 'KOWLOON' },
+                { PortCode: 'AUKAH', PortName: 'MELBOURNE-CITY HELIPORT, VI' },
+                { PortCode: 'ADZZZ', PortName: 'O P ANDORRA' },
+                { PortCode: 'VAZZZ', PortName: 'O P VATICAN CITYSTATE(HOLYSEE)' },
+                { PortCode: 'MYPEN', PortName: 'PENANG' },
+                { PortCode: 'AEKHL', PortName: 'PORT KHALID' },
+                { PortCode: 'CVRAI', PortName: 'PRAIA' },
+                { PortCode: 'IDBAP', PortName: 'PULAU BATAM' },
+                { PortCode: 'PGRAA', PortName: 'RAKANDA' },
+                { PortCode: 'RERUN', PortName: 'REUNION ISL/POINTE DES GALETS' },
+                { PortCode: 'ANSAB', PortName: 'SABA IS' },
+                { PortCode: 'USSSM', PortName: 'SAULT STE MARIE, MIWWW' },
+                { PortCode: 'CNSHA', PortName: 'SHANGHAI' },
+                { PortCode: 'VCSVD', PortName: 'ST VINCENT-ARNOS VALE' },
+                { PortCode: 'FOFAE', PortName: 'THORSHAVN-VAGAR APT' },
+                { PortCode: 'FIVAA', PortName: 'VAASA/VASA' },
+                { PortCode: 'SAAWI', PortName: 'WAISUMAH' },
+                { PortCode: 'DEAGE', PortName: 'WANGEROOGE' }
+            ];
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+                ionicMaterialMotion.ripple();
+            }, 0);
+        }]);
+
+appControllers.controller('ShipmentStatusCtl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.returnMain = function () {
+                $state.go('main', {}, { reload: true });
+            };
+            $scope.Rcsv1s = [
+                { PortCode: 'All', PortName: 'ALL' },
+                { PortCode: 'DEAAH', PortName: 'AACHEN' },
+                { PortCode: 'DKAAL', PortName: 'AALBORG' },
+                { PortCode: 'JPABA', PortName: 'ABASHIRI, HOKKAIDO' },
+                { PortCode: 'PGABW', PortName: 'ABAU' },
+                { PortCode: 'DEABH', PortName: 'ABBEHAUSEN' },
+                { PortCode: 'DEABF', PortName: 'ABBENFLETH' },
+                { PortCode: 'FRABB', PortName: 'ABBEVILLE' },
+                { PortCode: 'YEEAB', PortName: 'ABBSE' },
+                { PortCode: 'SAAAK', PortName: 'ABU AL KHOOSH' },
+                { PortCode: 'AEAUH', PortName: 'ABU DHABI' },
+                { PortCode: 'FIAHV', PortName: 'AHVENANMAA MUUT' },
+                { PortCode: 'AEAJM', PortName: 'AJMAN' },
+                { PortCode: 'GAAKE', PortName: 'AKIENI' },
+                { PortCode: 'SAAHA', PortName: 'AL HADA' },
+                { PortCode: 'JMALP', PortName: 'ALLIGATOR POND' },
+                { PortCode: 'DEAMR', PortName: 'AMRUN I.' },
+                { PortCode: 'PFAAA', PortName: 'ANAAB' },
+                { PortCode: 'DZAAE', PortName: 'ANNABA (FORMERLY BONE)' },
+                { PortCode: 'USAAF', PortName: 'APALACHICOLA, FL' },
+                { PortCode: 'DEAPE', PortName: 'APEN' },
+                { PortCode: 'BRAAI', PortName: 'ARRAIAS' },
+                { PortCode: 'AAAAA', PortName: 'ASASASAS' },
+                { PortCode: 'DEASS', PortName: 'ASSEL' },
+                { PortCode: 'SABDN', PortName: 'BADANA' },
+                { PortCode: 'THBKK', PortName: 'BANGKOK' },
+                { PortCode: 'GABGB', PortName: 'BOOUE' },
+                { PortCode: 'AOCAB', PortName: 'CABINDA' },
+                { PortCode: 'ECCUE', PortName: 'CUENCA' },
+                { PortCode: 'AUDAA', PortName: 'DARRA, QL' },
+                { PortCode: 'AEDAS', PortName: 'DAS ISLAND' },
+                { PortCode: 'BDDAC', PortName: 'DHAKA' },
+                { PortCode: 'AEDXB', PortName: 'DUBAI' },
+                { PortCode: 'AEFAT', PortName: 'FATEH TERMINAL' },
+                { PortCode: 'AEFJR', PortName: 'FUJAIRAH' },
+                { PortCode: 'SGSIN', PortName: 'GGGGG' },
+                { PortCode: 'SEHAD', PortName: 'HALMSTAD' },
+                { PortCode: 'HKHKG', PortName: 'HONG KONG' },
+                { PortCode: 'IDJKT', PortName: 'JAKARTA' },
+                { PortCode: 'AEJEA', PortName: 'JEBEL ALI' },
+                { PortCode: 'AEJED', PortName: 'JEBEL DHANNA' },
+                { PortCode: 'TWKEL', PortName: 'KEELUNG' },
+                { PortCode: 'AEKLF', PortName: 'KHOR AL FAKKAN' },
+                { PortCode: 'BDKHL', PortName: 'KHULNA' },
+                { PortCode: 'HKKWN', PortName: 'KOWLOON' },
+                { PortCode: 'AUKAH', PortName: 'MELBOURNE-CITY HELIPORT, VI' },
+                { PortCode: 'ADZZZ', PortName: 'O P ANDORRA' },
+                { PortCode: 'VAZZZ', PortName: 'O P VATICAN CITYSTATE(HOLYSEE)' },
+                { PortCode: 'MYPEN', PortName: 'PENANG' },
+                { PortCode: 'AEKHL', PortName: 'PORT KHALID' },
+                { PortCode: 'CVRAI', PortName: 'PRAIA' },
+                { PortCode: 'IDBAP', PortName: 'PULAU BATAM' },
+                { PortCode: 'PGRAA', PortName: 'RAKANDA' },
+                { PortCode: 'RERUN', PortName: 'REUNION ISL/POINTE DES GALETS' },
+                { PortCode: 'ANSAB', PortName: 'SABA IS' },
+                { PortCode: 'USSSM', PortName: 'SAULT STE MARIE, MIWWW' },
+                { PortCode: 'CNSHA', PortName: 'SHANGHAI' },
+                { PortCode: 'VCSVD', PortName: 'ST VINCENT-ARNOS VALE' },
+                { PortCode: 'FOFAE', PortName: 'THORSHAVN-VAGAR APT' },
+                { PortCode: 'FIVAA', PortName: 'VAASA/VASA' },
+                { PortCode: 'SAAWI', PortName: 'WAISUMAH' },
+                { PortCode: 'DEAGE', PortName: 'WANGEROOGE' }
+            ];
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+                ionicMaterialMotion.ripple();
+            }, 0);
+        }]);

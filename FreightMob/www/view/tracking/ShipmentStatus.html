@@ -1,0 +1,22 @@
+﻿<ion-view title="ShipmentStatus">
+    <div class="bar bar-header bar-positive">
+        <div class="buttons buttons-left header-item">
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon" ng-click="returnMain()"></button>
+            </span>
+        </div>
+        <div class="item-input-inset" style="width:90%;">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input id="txt-PortName" type="search" placeholder="Search Port Name" style="width:100%;" ng-model="Rcsv1.PortName">
+            </label>
+        </div>
+    </div>
+    <ion-content class="has-header">
+        <ion-list class="animate-ripple">
+            <ion-item nav-clear menu-close class="item ink" ng-repeat="Rcsv1 in Rcsv1s" ng-click="GoToDetail(Rcsv1)">
+                <h2><i class="iconfont icon-address2"></i>&nbsp;&nbsp;<span ng-bind="Rcsv1.PortName"></span></h2>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

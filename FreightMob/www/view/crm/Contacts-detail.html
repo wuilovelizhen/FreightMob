@@ -1,8 +1,12 @@
 ﻿<ion-view title="Detail">
-	<ion-header-bar class="bar-positive" align-title="center">
-		<button class="button button-icon icon ion-navicon" ng-click="returnList()"></button>
-		<div class="h1 title">Customer Detail</div>
-	</ion-header-bar>
+    <div class="bar bar-header bar-positive">
+        <div class="buttons buttons-left header-item">
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon" ng-click="returnList()"></button>
+            </span>
+        </div>
+        <div class="h1 title">Customer Detail</div>
+    </div>
 	<ion-content class="has-header">
 		<div>
             <div class="list card">
@@ -156,18 +160,14 @@
                         </div-->
                     </div>
                 </ion-content>
-                <ion-footer-bar style="height:8%; padding:0px;">
-                    <div class="button-bar">
-                        <button class="button icon ion-arrow-return-left" ng-click="closeModal()">&nbsp;Return</button>
-                    </div>
+                <ion-footer-bar class="button-bar" style="height:7%;">
+                    <button class="button button-flat button-positive ink" style="max-width:100%;" ng-click="closeModal()">Return</button>
                 </ion-footer-bar>
             </ion-modal-view>
         </script>
 	</ion-content>
-	<ion-footer-bar style="padding:1px;">
-		<div class="button-bar">
-            <button class="button button-positive" style="line-height: 44px;" disabled>Edit</button>
-			<button class="button button-light" style="line-height: 44px;" ng-click="returnList()">Cancel</button>
-		</div>
+	<ion-footer-bar class="button-bar" style="height:7%;">
+        <button class="button button-flat button-positive ink" style="max-width:49%;" ng-click="GoToDetailEdit()">Edit</button>
+        <button class="button button-positive ink" style="position:relative;max-width:49%;top:0;bottom:0;right:-5px;" ng-click="returnList()">Cancel</button>
 	</ion-footer-bar>
 </ion-view>

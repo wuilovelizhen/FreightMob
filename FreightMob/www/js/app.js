@@ -12,7 +12,8 @@ var app = angular.module('MobileAPP', [
     'ngCordova.plugins.barcodeScanner',
     'ui.select',
     'MobileAPP.directives',
-    'MobileAPP.services'
+    'MobileAPP.services',
+    'MobileAPP.controllers'
 ])
 
 app.run(['$ionicPlatform', '$rootScope', '$state', '$location', '$timeout', '$ionicPopup', '$ionicHistory', '$ionicLoading', '$cordovaToast', '$cordovaFile',
@@ -130,8 +131,9 @@ app.run(['$ionicPlatform', '$rootScope', '$state', '$location', '$timeout', '$io
         }, 101);
     }]);
 
-app.config(['$stateProvider', '$urlRouterProvider',
-    function ($stateProvider, $urlRouterProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider',
+    function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+        $ionicConfigProvider.backButton.previousTitleText(false);
         $stateProvider
             .state('loading', {
                 url: '/loading',
@@ -163,31 +165,44 @@ app.config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: "view/main.html",
                 controller: 'MainCtrl'
             })
-            .state('rcbpList', {
-                url: '/list',
-                templateUrl: 'view/rcbp/list.html',
-                controller: 'RcbpListCtrl'
+            .state('contacts', {
+                url: '/contacts',
+                templateUrl: 'view/crm/Contacts.html',
+                controller: 'ContactsCtrl'
             })
-            .state('rcbpDetail', {
-                url: '/detail/:TrxNo',
-                templateUrl: 'view/rcbp/detail.html',
-                controller: 'RcbpDetailCtrl'
+            .state('contactsDetail', {
+                url: '/contacts/detail/:TrxNo',
+                templateUrl: 'view/crm/Contacts-detail.html',
+                controller: 'ContactsDetailCtrl'
             })
-            .state('rcbpDetailEdit', {
-                url: '/detail/Edit/:TrxNo',
-                templateUrl: 'view/rcbp/detail-Edit.html',
-                controller: 'RcbpDetailEditCtrl'
+            .state('contactsDetailEdit', {
+                url: '/contacts/detail/Edit/:TrxNo',
+                templateUrl: 'view/crm/Contacts-detail-Edit.html',
+                controller: 'ContactsDetailEditCtrl'
             })
             .state('paymentApproval', {
-                url: '/pv',
-                templateUrl: 'view/pa/detail.html',
+                url: '/paymentApproval',
+                cache: 'false',
+                templateUrl: 'view/productivity/PaymentApproval.html',
                 controller: 'PaymentApprovalCtl'
+            })
+            .state('vesselSchedule', {
+                url: '/vesselSchedule',
+                cache: 'false',
+                templateUrl: 'view/tracking/VesselSchedule.html',
+                controller: 'VesselScheduleCtl'
+            })
+            .state('shipmentStatus', {
+                url: '/shipmentStatus',
+                cache: 'false',
+                templateUrl: 'view/tracking/ShipmentStatus.html',
+                controller: 'ShipmentStatusCtl'
             });
         $urlRouterProvider.otherwise('/login/N');
     }]);
 
 app.constant('$ionicLoadingConfig', {
-    template: 'Loading...'
+    template: '<div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>'
 });
 
 app.constant('ApiEndpoint', {

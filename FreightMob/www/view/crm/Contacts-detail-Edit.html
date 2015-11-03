@@ -1,8 +1,12 @@
 ﻿<ion-view title="Detail-Edit">
-    <ion-header-bar class="bar-positive" align-title="center">
-        <button class="button button-icon icon ion-navicon" ng-click="returnDetail()"></button>
+    <div class="bar bar-header bar-positive">
+        <div class="buttons buttons-left header-item">
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon" ng-click="returnDetail()"></button>
+            </span>
+        </div>
         <div class="h1 title">Customer Detail - Edit</div>
-    </ion-header-bar>
+    </div>
     <ion-pane class="has-header">
         <div style="margin-top:14%;">
             <div class="list">
@@ -21,10 +25,8 @@
             </div>
         </div>
     </ion-pane>
-    <ion-footer-bar>
-        <div class="button-bar">
-            <a class="button button-positive">Save</a>
-            <a class="button button-light" ng-click="returnDetail()">Cancel</a>
-        </div>
+    <ion-footer-bar class="button-bar" style="height:7%;">
+        <button class="button button-flat button-positive ink" style="max-width:49%;" ng-click="returnDetail()">Save</button>
+        <button class="button button-positive ink" style="position:relative;max-width:49%;top:0;bottom:0;right:-5px;" ng-click="returnDetail()">Cancel</button>
     </ion-footer-bar>
 </ion-view>

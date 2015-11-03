@@ -1,6 +1,6 @@
 var appControllers = angular.module('MobileAPP.controllers', [
     'ionic',
-	'ionic-material',
+	'ngMaterial',
     'ngCordova.plugins.toast',
     'ngCordova.plugins.dialogs',
     'ngCordova.plugins.toast',
@@ -24,8 +24,8 @@ appControllers.controller('LoadingCtrl',
         }]);
 
 appControllers.controller('LoginCtrl',
-        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', '$ionicLoading', 'ionicMaterialInk', 'ionicMaterialMotion', '$cordovaToast', '$cordovaAppVersion', 'JsonServiceClient', 
-        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, $ionicLoading, ionicMaterialInk, ionicMaterialMotion, $cordovaToast, $cordovaAppVersion, JsonServiceClient) {
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaToast', '$cordovaAppVersion', 'JsonServiceClient', 
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, $ionicLoading, $cordovaToast, $cordovaAppVersion, JsonServiceClient) {
             $scope.logininfo = {};
             $scope.logininfo.strUserName = "";
             $scope.logininfo.strPassword = "";
@@ -124,10 +124,6 @@ appControllers.controller('LoginCtrl',
                 };
                 JsonServiceClient.postToService(strUri, jsonData, onSuccess, onError);
             };
-            $timeout(function () {
-                ionicMaterialInk.displayEffect();
-                ionicMaterialMotion.ripple();
-            }, 0);
         }]);
 
 appControllers.controller('SettingCtrl',
@@ -237,8 +233,8 @@ appControllers.controller('UpdateCtrl',
         }]);
 
 appControllers.controller('MainCtrl',
-        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', '$cordovaBarcodeScanner', 'JsonServiceClient',
-        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, $cordovaBarcodeScanner, JsonServiceClient) {
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', '$cordovaBarcodeScanner', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, $cordovaBarcodeScanner, JsonServiceClient) {
             $scope.GoToRcbp = function () {
                 $state.go('contacts', {}, { reload: true });
             };
@@ -251,10 +247,6 @@ appControllers.controller('MainCtrl',
             $scope.GoToSS = function () {
                 $state.go('shipmentStatus', {}, { reload: true });
             };
-            $timeout(function () {
-                ionicMaterialInk.displayEffect();
-                ionicMaterialMotion.ripple();
-            }, 0);
             /*
             $scope.scanBarcode = function () {
                 $cordovaBarcodeScanner.scan().then(function (imageData) {
@@ -267,8 +259,8 @@ appControllers.controller('MainCtrl',
         }]);
 
 appControllers.controller('ContactsCtrl',
-        ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaDialogs', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
-        function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $ionicLoading, $cordovaDialogs, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+        ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaDialogs', 'JsonServiceClient',
+        function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $ionicLoading, $cordovaDialogs, JsonServiceClient) {
             $scope.Rcbp = {};
             $scope.Rcbp.BusinessPartyName = "";
             $scope.returnMain = function () {
@@ -291,10 +283,6 @@ appControllers.controller('ContactsCtrl',
                 var onSuccess = function (response) {
                     $ionicLoading.hide();
                     $scope.Rcbp1s = response.data.results;
-                    $timeout(function () {
-                        ionicMaterialMotion.blinds();
-                        ionicMaterialInk.displayEffect();
-                    }, 0);
                 };
                 var onError = function (response) {
                     $ionicLoading.hide();
@@ -376,8 +364,8 @@ appControllers.controller('ContactsDetailEditCtrl',
         }]);
 
 appControllers.controller('PaymentApprovalCtl',
-        ['$scope', '$http', '$timeout', '$state', '$ionicHistory', 'ionicMaterialInk', 'ionicMaterialMotion',
-        function ($scope, $http, $timeout, $state, $ionicHistory, ionicMaterialInk, ionicMaterialMotion) {
+        ['$scope', '$http', '$timeout', '$state', '$ionicHistory',
+        function ($scope, $http, $timeout, $state, $ionicHistory) {
             $scope.returnList = function () {
                 if ($ionicHistory.backView()) {
                     $ionicHistory.goBack();
@@ -422,15 +410,11 @@ appControllers.controller('PaymentApprovalCtl',
                 { id: 14 },
                 { id: 15 }
             ];
-            $timeout(function () {
-                ionicMaterialInk.displayEffect();
-                ionicMaterialMotion.blinds();
-            }, 0);
         }]);
 
 appControllers.controller('VesselScheduleCtl',
-        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
-        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, JsonServiceClient) {
             $scope.returnMain = function () {
                 $state.go('main', {}, { reload: true });
             };
@@ -498,15 +482,11 @@ appControllers.controller('VesselScheduleCtl',
                 { PortCode: 'SAAWI', PortName: 'WAISUMAH' },
                 { PortCode: 'DEAGE', PortName: 'WANGEROOGE' }
             ];
-            $timeout(function () {
-                ionicMaterialInk.displayEffect();
-                ionicMaterialMotion.ripple();
-            }, 0);
         }]);
 
 appControllers.controller('ShipmentStatusCtl',
-        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
-        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, JsonServiceClient) {
             $scope.returnMain = function () {
                 $state.go('main', {}, { reload: true });
             };
@@ -574,8 +554,4 @@ appControllers.controller('ShipmentStatusCtl',
                 { PortCode: 'SAAWI', PortName: 'WAISUMAH' },
                 { PortCode: 'DEAGE', PortName: 'WANGEROOGE' }
             ];
-            $timeout(function () {
-                ionicMaterialInk.displayEffect();
-                ionicMaterialMotion.ripple();
-            }, 0);
         }]);

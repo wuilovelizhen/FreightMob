@@ -1,5 +1,5 @@
-angular.module('MobileAPP.services', ['ionic', 'ionic-material'])
-.service('JsonServiceClient', ['$http', '$ionicPopup', '$timeout', 'ionicMaterialInk', function ($http, $ionicPopup, $timeout, ionicMaterialInk) {
+angular.module('MobileAPP.services', ['ionic'])
+.service('JsonServiceClient', ['$http', '$ionicPopup', '$timeout', function ($http, $ionicPopup, $timeout, ionicMaterialInk) {
     function parseResponseStatus (status) {
         if (!status) return { isSuccess: true };
         var result =
@@ -51,9 +51,6 @@ angular.module('MobileAPP.services', ['ionic', 'ionic-material'])
                     okType: 'button-assertive'
                 });
                 $timeout(function () {
-                    ionicMaterialInk.displayEffect();
-                }, 0);
-                $timeout(function () {
                     alertPopup.close();
                 }, 2500);
             }
@@ -64,9 +61,6 @@ angular.module('MobileAPP.services', ['ionic', 'ionic-material'])
                     title: 'Connect to WebService failed.',
                     okType: 'button-assertive'
                 });
-                $timeout(function () {
-                    ionicMaterialInk.displayEffect();
-                }, 0);
                 $timeout(function () {
                     alertPopup.close();
                 }, 2500);
@@ -99,9 +93,6 @@ angular.module('MobileAPP.services', ['ionic', 'ionic-material'])
                     okType: 'button-assertive'
                 });
                 $timeout(function () {
-                    ionicMaterialInk.displayEffect();
-                }, 0);
-                $timeout(function () {
                     alertPopup.close();
                 }, 2500);
             }
@@ -112,9 +103,6 @@ angular.module('MobileAPP.services', ['ionic', 'ionic-material'])
                     title: 'Connect to WebService failed.',
                     okType: 'button-assertive'
                 });
-                $timeout(function () {
-                    ionicMaterialInk.displayEffect();
-                }, 0);
                 $timeout(function () {
                     alertPopup.close();
                 }, 2500);

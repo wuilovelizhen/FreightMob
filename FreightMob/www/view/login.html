@@ -4,17 +4,23 @@
 			<div style="text-align:center; margin-left:auto; margin-right:auto;">
 				<img src="./img/login.png" width="20%" height="20%">
 			</div>
-			<div class="list list-inset animate-ripple">
-                <label class="item item-input">
-                    <i class="icon ion-android-person placeholder-icon"></i>&nbsp;&nbsp;
-                    <input type="text" id="iUserName" placeholder="User Name" required ng-model="logininfo.strUserName">
-                </label>
-				<label class="item item-input">
-					<i class="icon ion-android-lock placeholder-icon"></i>&nbsp;&nbsp;
-					<input type="password" id="iPassword" placeholder="Password" required ng-model="logininfo.strPassword">
-				</label>
-				<button class="button button-block button-positive" ng-click="login()">SIGN IN</button>
-			</div>
+                <div layout="column" ng-cloak>
+                    <md-content class="md-padding">
+                        <form ng-submit="$event.preventDefault()" name="loginForm">
+                            <div layout-gt-sm="row">
+                                <md-input-container flex>                                    
+                                    <label><i class="icon ion-android-person placeholder-icon"></i>&nbsp;&nbsp;User Name</label>
+                                    <input type="text" id="iUserName" required ng-model="logininfo.strUserName">
+                                </md-input-container>
+                                <md-input-container flex>
+                                    <label><i class="icon ion-android-lock placeholder-icon"></i>&nbsp;&nbsp;Password</label>
+                                    <input type="password" id="iPassword" ng-model="logininfo.strPassword">
+                                </md-input-container>
+                            </div>
+                            <button class="button button-block button-positive" ng-click="login()">SIGN IN</button>
+                        </form>
+                    </md-content>
+                </div>
 		</ion-side-menu-content>
 		<ion-side-menu side="left">
 			<ion-header-bar align-title="center" class="bar-positive">

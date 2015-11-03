@@ -24,8 +24,8 @@ appControllers.controller('LoadingCtrl',
         }]);
 
 appControllers.controller('LoginCtrl',
-        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaToast', '$cordovaAppVersion', 'JsonServiceClient', 
-        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, $ionicLoading, $cordovaToast, $cordovaAppVersion, JsonServiceClient) {
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', '$ionicLoading', 'ionicMaterialInk', 'ionicMaterialMotion', '$cordovaToast', '$cordovaAppVersion', 'JsonServiceClient', 
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, $ionicLoading, ionicMaterialInk, ionicMaterialMotion, $cordovaToast, $cordovaAppVersion, JsonServiceClient) {
             $scope.logininfo = {};
             $scope.logininfo.strUserName = "";
             $scope.logininfo.strPassword = "";
@@ -124,6 +124,10 @@ appControllers.controller('LoginCtrl',
                 };
                 JsonServiceClient.postToService(strUri, jsonData, onSuccess, onError);
             };
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+                ionicMaterialMotion.ripple();
+            }, 0);
         }]);
 
 appControllers.controller('SettingCtrl',

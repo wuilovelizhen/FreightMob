@@ -1,20 +1,24 @@
 <ion-view title="Login">
 	<ion-side-menus enable-menu-with-back-views="true">
-		<ion-side-menu-content>
-			<div style="text-align:center; margin-left:auto; margin-right:auto;">
-				<img src="./img/login.png" width="20%" height="20%">
-			</div>
-			<div class="list list-inset animate-ripple">
-                <label class="item item-input">
-                    <i class="icon ion-android-person placeholder-icon"></i>&nbsp;&nbsp;
-                    <input type="text" id="iUserName" placeholder="User Name" required ng-model="logininfo.strUserName">
-                </label>
-				<label class="item item-input">
-					<i class="icon ion-android-lock placeholder-icon"></i>&nbsp;&nbsp;
-					<input type="password" id="iPassword" placeholder="Password" required ng-model="logininfo.strPassword">
-				</label>
-				<button class="button button-block button-positive" ng-click="login()">SIGN IN</button>
-			</div>
+		<ion-side-menu-content style="background: url(img/mountains.jpg) center; background-size: cover;" class="ionic login">
+            <div class="hero no-header flat">
+                <div class="content">
+                    <div class="app-icon">
+                        <img src="./img/login.png" width="220px;" height="220px;">
+                    </div>
+                </div>
+            </div>
+            <div class="list">
+                <ion-md-input id="iUserName" placeholder="Username" highlight-color="balanced" type="text" ng-model="logininfo.strUserName" required>
+                    <i class="icon ion-android-person placeholder-icon"></i> 
+                </ion-md-input>
+                <ion-md-input id="iPassword" placeholder="Password" highlight-color="energized" type="password" ng-model="logininfo.strPassword">
+                    <i class="icon ion-android-lock placeholder-icon"></i>
+                </ion-md-input>
+            </div>
+            <div class="padding">
+                <button class="button button-full button-positive ink" ng-click="login()">SIGN IN</button>
+            </div>
 		</ion-side-menu-content>
 		<ion-side-menu side="left">
 			<ion-header-bar align-title="center" class="bar-positive">

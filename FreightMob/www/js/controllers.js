@@ -251,6 +251,17 @@ appControllers.controller('MainCtrl',
             $scope.GoToSS = function () {
                 $state.go('shipmentStatus', {}, { reload: true });
             };
+            // Set Motion
+            $timeout(function () {
+                ionicMaterialMotion.slideUp({
+                    selector: '.slide-up'
+                });
+            }, 300);
+            $timeout(function () {
+                ionicMaterialMotion.fadeSlideInRight({
+                    startVelocity: 3000
+                });
+            }, 700);
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
                 ionicMaterialMotion.ripple();

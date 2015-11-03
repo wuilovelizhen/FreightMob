@@ -1,12 +1,12 @@
 ﻿<ion-view title="Main">
-	<div class="bar bar-header bar-positive">
+	<div class="bar bar-header bar-calm-900">
 		<div class="h1 title title-center light">
 		SysFreight Mobile
 		</div>
 	</div>
     <ion-pane>
-        <ion-tabs class="tabs-striped tabs-top tabs-background-positive tabs-color-light tabs-icon-left">
-            <ion-tab title="CRM" icon-on="ion-ios-people" icon-off="ion-ios-people-outline" class="animate-ripple">
+        <ion-tabs class="tabs-striped tabs-top tabs-background-positive tabs-color-light tabs-icon-left slide-up">
+            <ion-tab title="CRM" icon-on="ion-ios-people" icon-off="ion-ios-people-outline">
                 <div style="margin-top:8.0em;">
                     <div class="row row-center">
                         <div class="col ink" style="text-align:center;">
@@ -57,36 +57,38 @@
             </ion-tab>
             <ion-tab title="Tracking" icon-on="ion-ios-navigate" icon-off="ion-ios-navigate-outline">
                 <div style="margin-top:8.0em;">
-                    <div class="row row-center">
-                        <div class="col ink" style="text-align:center;">
-                            <a style="width:70%;height:100%;" ng-click="GoToVS()"><img src="./img/free-60-icons-18.png" width="40%" alt="" class="img-circle"></a>
-                            <h5>Vessel Schedule</h5>
+                    <div class="list animate-fade-slide-in-right">
+                        <div class="row row-center">
+                            <div class="col ink" style="text-align:center;">
+                                <a style="width:70%;height:100%;" ng-click="GoToVS()"><img src="./img/free-60-icons-18.png" width="40%" alt="" class="img-circle"></a>
+                                <h5>Vessel Schedule</h5>
+                            </div>
+                            <div class="col ink" style="text-align:center;">
+                                <a style="width:70%;height:100%;" ng-click="GoToSS()"><img src="./img/free-60-icons-13.png" width="40%" alt="" class="img-circle"></a>
+                                <h5>Shipment Status</h5>
+                            </div>
                         </div>
-                        <div class="col ink" style="text-align:center;">
-                            <a style="width:70%;height:100%;" ng-click="GoToSS()"><img src="./img/free-60-icons-13.png" width="40%" alt="" class="img-circle"></a>
-                            <h5>Shipment Status</h5>
+                        <div class="row row-center">
+                            <div class="col ink" style="text-align:center;">
+                                <a style="width:70%;height:100%;"><img src="./img/free-60-icons-51.png" width="40%" alt="" class="img-circle"></a>
+                                <h5>Invoice</h5>
+                            </div>
+                            <div class="col ink" style="text-align:center;">
+                                <a style="width:70%;height:100%;"><img src="./img/free-60-icons-51.png" width="40%" alt="" class="img-circle"></a>
+                                <h5>BL</h5>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row row-center">
-                        <div class="col ink" style="text-align:center;">
-                            <a style="width:70%;height:100%;"><img src="./img/free-60-icons-51.png" width="40%" alt="" class="img-circle"></a>
-                            <h5>Invoice</h5>
+                        <div class="row row-center">
+                            <div class="col ink" style="text-align:center;">
+                                <a style="width:70%;height:100%;"><img src="./img/free-60-icons-51.png" width="40%" alt="" class="img-circle"></a>
+                                <h5>AWB</h5>
+                            </div>
+                            <div class="col ink" style="text-align:center;">
+                                <a style="width:70%;height:100%;"><img src="./img/free-60-icons-51.png" width="40%" alt="" class="img-circle"></a>
+                                <h5>SOA</h5>
+                            </div>
                         </div>
-                        <div class="col ink" style="text-align:center;">
-                            <a style="width:70%;height:100%;"><img src="./img/free-60-icons-51.png" width="40%" alt="" class="img-circle"></a>
-                            <h5>BL</h5>
-                        </div>
-                    </div>
-                    <div class="row row-center">
-                        <div class="col ink" style="text-align:center;">
-                            <a style="width:70%;height:100%;"><img src="./img/free-60-icons-51.png" width="40%" alt="" class="img-circle"></a>
-                            <h5>AWB</h5>
-                        </div>
-                        <div class="col ink" style="text-align:center;">
-                            <a style="width:70%;height:100%;"><img src="./img/free-60-icons-51.png" width="40%" alt="" class="img-circle"></a>
-                            <h5>SOA</h5>
-                        </div>
-                    </div>
+                    </div>                    
                 </div>
             </ion-tab>
         </ion-tabs>

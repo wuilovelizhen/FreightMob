@@ -192,6 +192,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider',
                 templateUrl: 'view/tracking/VesselSchedule.html',
                 controller: 'VesselScheduleCtl'
             })
+            .state('vesselScheduleDetail', {
+                url: '/vesselSchedule/detail/:PortCode',
+                cache: 'false',
+                templateUrl: 'view/tracking/VesselSchedule-detail.html',
+                controller: 'VesselScheduleDetailCtrl'
+            })
             .state('shipmentStatus', {
                 url: '/shipmentStatus',
                 cache: 'false',

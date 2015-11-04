@@ -5,7 +5,7 @@
                 <button class="button button-icon button-clear ion-navicon" ng-click="returnList()"></button>
             </span>
         </div>
-        <div class="h1 title">Payment Approval</div>
+        <div class="title">Payment Approval</div>
     </div>
     <!--ion-pane style="margin-top:44px; height:50px; overflow:visible;">
         <div class="list item">
@@ -36,15 +36,18 @@
         </div>
     </!--ion-pane-->
     <ion-content class="has-header">
-        <!--div class="item">
-            <ion-checkbox ng-model="selectAll" ng-change="data.showReorder = !data.showReorder">Select All</ion-checkbox>
-        </!--div-->
-        <ion-list class="animate-blinds">       
-            <ion-checkbox ng-repeat="item in items" ng-model="select" class="ink"> Item {{ item.id }}</ion-checkbox>
+        <ion-list class="animate-blinds">
+            <ion-item nav-clear menu-close class="item ink" ng-repeat="item in items">
+                <ion-checkbox ng-model="item.isSelected" class="ink">
+                    <h2><span ng-bind="item.VoucherNo"></span></h2>
+                    <p><i class="iconfont icon-title"></i>&nbsp;&nbsp;<span ng-bind="item.VendorName"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="iconfont icon-amount"></i>&nbsp;&nbsp;<span ng-bind="item.Amt"></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="iconfont icon-date"></i>&nbsp;&nbsp;<span ng-bind="item.Date"></span></p>
+                </ion-checkbox>
+            </ion-item>
         </ion-list>
     </ion-content>
     <ion-footer-bar class="button-bar" style="height:7%;">
-        <button class="button button-flat button-positive ink" style="max-width:49%;">App</button>
-        <button class="button button-flat button-positive ink" style="position:relative;max-width:49%;top:0;bottom:0;right:-5px;" ng-click="returnMain()">Cancel</button>
+        <lable class="checkbox ink" style="right:-5px;"><span>Select All</span>&nbsp;<ui-select-all items="items" prop="isSelected" class="pull-right"></ui-select-all></lable>
+        <button class="button button-flat button-positive ink" style="max-width:33%;right:-10px;" ng-click="showApproval()">Approval</button>
+        <button class="button button-flat button-positive ink" style="position:relative;max-width:33%;top:0;bottom:0;right:-15px;" ng-click="returnMain()">Cancel</button>
     </ion-footer-bar>
 </ion-view>

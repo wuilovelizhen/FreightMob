@@ -1,11 +1,11 @@
 ﻿<ion-view title="Detail">
-    <div class="bar bar-header bar-positive">
+    <div class="bar bar-header bar-calm-900">
         <div class="buttons buttons-left header-item">
             <span class="left-buttons">
                 <button class="button button-icon button-clear ion-navicon" ng-click="returnList()"></button>
             </span>
         </div>
-        <div class="h1 title">Customer Detail</div>
+        <div class="title">Customer Detail</div>
     </div>
 	<ion-content class="has-header">
 		<div>
@@ -16,19 +16,19 @@
                 </div>
                 <div class="item item-body">
                     <div class="item">
-                        <i class="iconfont icon-address2"></i>&nbsp;&nbsp;
+                        <i class="iconfont icon-address1"></i>&nbsp;&nbsp;
                         <span ng-bind="rcbpDetail.Address1"></span>
                     </div>
                     <div class="item">
-                        <i class="iconfont icon-address2"></i>&nbsp;&nbsp;
+                        <i class="iconfont icon-address1"></i>&nbsp;&nbsp;
                         <span ng-bind="rcbpDetail.Address2"></span>
                     </div>
                     <div class="item">
-                        <i class="iconfont icon-address2"></i>&nbsp;&nbsp;
+                        <i class="iconfont icon-address1"></i>&nbsp;&nbsp;
                         <span ng-bind="rcbpDetail.Address3"></span>
                     </div>
                     <div class="item">
-                        <i class="iconfont icon-address2"></i>&nbsp;&nbsp;
+                        <i class="iconfont icon-address1"></i>&nbsp;&nbsp;
                         <span ng-bind="rcbpDetail.Address4"></span>
                     </div>
                     <div class="item">
@@ -36,11 +36,11 @@
                         <span ng-bind="rcbpDetail.CityCode"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span ng-bind="rcbpDetail.CityName"></span>
                     </div>
                     <div class="item">
-                        <i class="iconfont icon-countryall"></i>&nbsp;&nbsp;
+                        <i class="iconfont icon-accountcity"></i>&nbsp;&nbsp;
                         <span ng-bind="rcbpDetail.CountryCode"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span ng-bind="rcbpDetail.CountryCode"></span>
                     </div>
                     <div class="item">
-                        <i class="iconfont icon-phone3"></i>&nbsp;&nbsp;
+                        <i class="iconfont icon-phone"></i>&nbsp;&nbsp;
                         <span ng-bind="rcbpDetail.Telephone"></span>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="iconfont icon-fax"></i>&nbsp;&nbsp;
@@ -85,14 +85,14 @@
                 <ion-content>
                     <div class="list card">
                         <div class="item">
-                            <h2>
+                            <p>
                                 <i class="iconfont icon-name"></i>&nbsp;&nbsp;
                                 <span ng-bind="rcbp3Detail.ContactName"></span>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i class="iconfont icon-title1"></i>&nbsp;&nbsp;
                                 <span ng-bind="rcbp3Detail.Title"></span>
-                            </h2>
+                            </p>                                
                             <p>
-                                <i class="iconfont icon-phone3"></i>&nbsp;&nbsp;
+                                <i class="iconfont icon-phone"></i>&nbsp;&nbsp;
                                 <span ng-bind="rcbp3Detail.Telephone"></span>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i class="iconfont icon-fax"></i>&nbsp;&nbsp;
                                 <span ng-bind="rcbp3Detail.Fax"></span>
@@ -109,7 +109,7 @@
                         <div class="item item-body">
                             <img class="full-image" ng-show="blnContainNameCard(rcbp3Detail)" ng-src="data:image/png;base64,{{rcbp3Detail.NameCard}}"/>
                             <p>
-                                <i class="iconfont icon-birthday"></i>&nbsp;&nbsp;
+                                <i class="iconfont icon-birthdaycake"></i>&nbsp;&nbsp;
                                 <span ng-bind="rcbp3Detail.Birthday"></span>
                             </p>
                             <p>

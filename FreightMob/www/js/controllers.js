@@ -66,6 +66,9 @@ appControllers.controller('LoginCtrl',
                                     okType: 'button-assertive'
                                 });
                                 $timeout(function () {
+                                    ionicMaterialInk.displayEffect();
+                                }, 0);
+                                $timeout(function () {
                                     alertPopup.close();
                                 }, 2500);
                             }
@@ -76,6 +79,9 @@ appControllers.controller('LoginCtrl',
                             title: "Connect Update Server Error!",
                             okType: 'button-assertive'
                         });
+                        $timeout(function () {
+                            ionicMaterialInk.displayEffect();
+                        }, 0);
                         $timeout(function () {
                             alertPopup.close();
                         }, 2500);
@@ -93,6 +99,9 @@ appControllers.controller('LoginCtrl',
                         title: 'Please Enter User Name.',
                         okType: 'button-assertive'
                     });
+                    $timeout(function () {
+                        ionicMaterialInk.displayEffect();
+                    }, 0);
                     $timeout(function () {
                         alertPopup.close();
                     }, 2500);
@@ -173,6 +182,9 @@ appControllers.controller('SettingCtrl',
                         title: 'Delete Config File Success.',
                         okType: 'button-calm'
                     });
+                    $timeout(function () {
+                        ionicMaterialInk.displayEffect();
+                    }, 0);
                     $timeout(function () {
                         alertPopup.close();
                     }, 2500);
@@ -387,8 +399,8 @@ appControllers.controller('ContactsDetailEditCtrl',
         }]);
 
 appControllers.controller('PaymentApprovalCtl',
-        ['$scope', '$http', '$timeout', '$state', '$ionicHistory', 'ionicMaterialInk', 'ionicMaterialMotion',
-        function ($scope, $http, $timeout, $state, $ionicHistory, ionicMaterialInk, ionicMaterialMotion) {
+        ['$scope', '$http', '$timeout', '$state', '$ionicHistory', '$ionicPopup', 'ionicMaterialInk', 'ionicMaterialMotion',
+        function ($scope, $http, $timeout, $state, $ionicHistory, $ionicPopup, ionicMaterialInk, ionicMaterialMotion) {
             $scope.returnList = function () {
                 if ($ionicHistory.backView()) {
                     $ionicHistory.goBack();
@@ -400,9 +412,17 @@ appControllers.controller('PaymentApprovalCtl',
             $scope.returnMain = function () {
                 $state.go('main', {}, { reload: true });
             };
-            $scope.selectAll = function () {
-            };
-            $scope.clearAll = function () {
+            $scope.showApproval = function () {
+                var alertPopup = $ionicPopup.alert({
+                    title: "Approval Success!",
+                    okType: 'button-calm'
+                });
+                $timeout(function () {
+                    ionicMaterialInk.displayEffect();
+                }, 0);
+                $timeout(function () {
+                    alertPopup.close();
+                }, 2500);
             };
             $scope.StatusCode = { text: "USE", checked: false };
             $scope.statusChange = function () {
@@ -412,26 +432,23 @@ appControllers.controller('PaymentApprovalCtl',
                     $scope.StatusCode.text = "USE";
                 }
             };
-            $scope.data = {
-                showReorder: false
-            };
             $scope.items = [
-                { id: 0 },
-                { id: 1 },
-                { id: 2 },
-                { id: 3 },
-                { id: 4 },
-                { id: 5 },
-                { id: 6 },
-                { id: 7 },
-                { id: 8 },
-                { id: 9 },
-                { id: 10 },
-                { id: 11 },
-                { id: 12 },
-                { id: 13 },
-                { id: 14 },
-                { id: 15 }
+                { id: 0, VoucherNo: 'PV15031101', Amt: '760', VendorName: 'SysMagic', Date: 'Mar 16,2015' },
+                { id: 1, VoucherNo: 'PV15031533', Amt: '785', VendorName: 'SysMagic', Date: 'Mar 16,2015' },
+                { id: 2, VoucherNo: 'PV15031684', Amt: '349', VendorName: 'SysMagic', Date: 'Mar 16,2015' },
+                { id: 3, VoucherNo: 'PV15031244', Amt: '965', VendorName: 'SysMagic', Date: 'Mar 16,2015' },
+                { id: 4, VoucherNo: 'PV15031963', Amt: '407', VendorName: 'SysMagic', Date: 'Mar 16,2015' },
+                { id: 5, VoucherNo: 'PV15031148', Amt: '663', VendorName: 'SysMagic', Date: 'Mar 16,2015' },
+                { id: 6, VoucherNo: 'PV15031823', Amt: '472', VendorName: 'SysMagic', Date: 'Mar 16,2015' },
+                { id: 7, VoucherNo: 'PV15031473', Amt: '524', VendorName: 'SysMagic', Date: 'Mar 16,2015' },
+                { id: 8, VoucherNo: 'PV15031726', Amt: '810', VendorName: 'COSCO', Date: 'Mar 15,2015' },
+                { id: 9, VoucherNo: 'PV1503152', Amt: '591', VendorName: 'COSCO', Date: 'Mar 15,2015' },
+                { id: 10, VoucherNo: 'PV1503129', Amt: '232', VendorName: 'COSCO', Date: 'Mar 15,2015' },
+                { id: 11, VoucherNo: 'PV15031490', Amt: '574', VendorName: 'COSCO', Date: 'Mar 15,2015' },
+                { id: 12, VoucherNo: 'PV15031106', Amt: '465', VendorName: 'SysFreight', Date: 'Mar 16,2015' },
+                { id: 13, VoucherNo: 'PV15031374', Amt: '124', VendorName: 'SysFreight', Date: 'Mar 16,2015' },
+                { id: 14, VoucherNo: 'PV15031841', Amt: '539', VendorName: 'SysFreight', Date: 'Mar 16,2015' },
+                { id: 15, VoucherNo: 'PV1503115', Amt: '6', VendorName: 'SysFreight', Date: 'Mar 16,2015' }
             ];
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
@@ -445,6 +462,9 @@ appControllers.controller('VesselScheduleCtl',
             $scope.returnMain = function () {
                 $state.go('main', {}, { reload: true });
             };
+            $scope.GoToDetail = function (Rcvs1) {
+                $state.go('vesselScheduleDetail', { 'PortCode' : Rcvs1.PortCode }, { reload: true });
+            };            
             $scope.Rcsv1s = [
                 { PortCode: 'All', PortName: 'ALL' },
                 { PortCode: 'DEAAH', PortName: 'AACHEN' },
@@ -508,6 +528,42 @@ appControllers.controller('VesselScheduleCtl',
                 { PortCode: 'FIVAA', PortName: 'VAASA/VASA' },
                 { PortCode: 'SAAWI', PortName: 'WAISUMAH' },
                 { PortCode: 'DEAGE', PortName: 'WANGEROOGE' }
+            ];
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+                ionicMaterialMotion.ripple();
+            }, 0);
+        }]);
+
+appControllers.controller('VesselScheduleDetailCtrl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.Rcsv1Detail = {};
+            $scope.Rcsv1Detail.POD = $stateParams.PortCode;
+            $scope.returnList = function () {
+                $state.go('vesselSchedule', {}, { reload: true });
+            };
+            $scope.Rcsv1s = [
+                { PortCode: 'All', PortName: 'ALL', DepartureDate: '04/11/2015', VesselVoyage: 'A P MOLLER', Carrier: 'SysMagic SHIPPING (S) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '2' },
+                { PortCode: 'DEAAH', PortName: 'AACHEN', DepartureDate: '04/11/2015', VesselVoyage: 'KEE', Carrier: 'JOSINDO CONTAINER SERVICES', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '1' },
+                { PortCode: 'DKAAL', PortName: 'AALBORG', DepartureDate: '04/11/2015', VesselVoyage: 'HAI XIONG', Carrier: 'HEUNG-A (SPORE) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '1' },
+                { PortCode: 'JPABA', PortName: 'ABASHIRI, HOKKAIDO', DepartureDate: '04/11/2015', VesselVoyage: 'SOPHIA BRITTANIA', Carrier: 'DELMAS SHIPPING (S) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '0' },
+                { PortCode: 'PGABW', PortName: 'ABAU', DepartureDate: '04/11/2015', VesselVoyage: 'A&B&C', Carrier: 'ADVANCE CONTAINER LINES (PTE) LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '0' },
+                { PortCode: 'DEABH', PortName: 'ABBEHAUSEN', DepartureDate: '04/11/2015', VesselVoyage: 'HAMMURABI', Carrier: 'SAL AGENCIES', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '1' },
+                { PortCode: 'DEABF', PortName: 'ABBENFLETH', DepartureDate: '04/11/2015', VesselVoyage: 'GENIKI', Carrier: 'FOONG SUN SHIPPING & TRADING', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '1' },
+                { PortCode: 'FRABB', PortName: 'ABBEVILLE', DepartureDate: '04/11/2015', VesselVoyage: 'WQSDA12313', Carrier: 'SysMagic SHIPPING (S) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '7' },
+                { PortCode: 'YEEAB', PortName: 'ABBSE', DepartureDate: '04/11/2015', VesselVoyage: 'H-A CARM', Carrier: 'KIE GWAN SHIPPING', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '7' },
+                { PortCode: 'SAAAK', PortName: 'ABU AL KHOOSH', DepartureDate: '04/11/2015', VesselVoyage: 'J FASTER', Carrier: 'SINO EXPRESS PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '1' },
+                { PortCode: 'AEAUH', PortName: 'ABU DHABI', DepartureDate: '04/11/2015', VesselVoyage: 'JEEWE', Carrier: 'SAMUDERA SHIPPING LINE PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '5' },
+                { PortCode: 'FIAHV', PortName: 'AHVENANMAA MUUT', DepartureDate: '04/11/2015', VesselVoyage: 'KADIMA', Carrier: 'KADIMA PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '2' },
+                { PortCode: 'AEAJM', PortName: 'AJMAN', DepartureDate: '04/11/2015', VesselVoyage: 'BEAUTE', Carrier: 'FAIRMACS MULTILINE', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '0' },
+                { PortCode: 'GAAKE', PortName: 'AKIENI', DepartureDate: '04/11/2015', VesselVoyage: 'KINGKONG', Carrier: 'SysMagic SHIPPING (S) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '8' },
+                { PortCode: 'SAAHA', PortName: 'AL HADA', DepartureDate: '04/11/2015', VesselVoyage: 'WQSDA12313', Carrier: 'SysMagic SHIPPING (S) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '0' },
+                { PortCode: 'JMALP', PortName: 'ALLIGATOR POND', DepartureDate: '04/11/2015', VesselVoyage: 'WQSDA12313', Carrier: 'SysMagic SHIPPING (S) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '0' },
+                { PortCode: 'DEAMR', PortName: 'AMRUN I.', DepartureDate: '04/11/2015', VesselVoyage: 'WQSDA12313', Carrier: 'SysMagic SHIPPING (S) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '5' },
+                { PortCode: 'PFAAA', PortName: 'ANAAB', DepartureDate: '04/11/2015', VesselVoyage: 'WQSDA12313', Carrier: 'SysMagic SHIPPING (S) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '2' },
+                { PortCode: 'DZAAE', PortName: 'ANNABA (FORMERLY BONE)', DepartureDate: '04/11/2015', VesselVoyage: 'WQSDA12313', Carrier: 'SysMagic SHIPPING (S) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '1' },
+                { PortCode: 'DEAGE', PortName: 'WANGEROOGE', DepartureDate: '04/11/2015', VesselVoyage: 'WQSDA12313', Carrier: 'SysMagic SHIPPING (S) PTE LTD', POD: 'XMN', ArrivalDate: '06/11/2015', TransitTime: '2' }
             ];
             $timeout(function () {
                 ionicMaterialInk.displayEffect();

@@ -1,0 +1,24 @@
+﻿<ion-view title="ShipmentStatusDetail">
+    <div class="bar bar-header bar-calm-900">
+        <div class="buttons buttons-left header-item">
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon" ng-click="returnList()"></button>
+            </span>
+        </div>
+        <div class="title"><span ng-bind="Detail.FilterName"></span> - <span ng-bind="Detail.FilterValue"></span></div>
+    </div>
+	<ion-content class="has-header">
+        <div class="card animate-ripple" tabindex="-1" ng-repeat="item in items">
+            <div class="list">
+                <ion-item nav-clear menu-close class="item ink">
+                    <h2>Job No&nbsp;:&nbsp;<span ng-bind="item.JobNo"></span></h2>
+                    <p>B/L No&nbsp;:&nbsp;<span ng-bind="item.BLNo"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No&nbsp;:&nbsp;<span ng-bind="item.RefNo"></span></p>
+                    <p>ETD&nbsp;:&nbsp;<span ng-bind="item.ETD"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ETA&nbsp;:&nbsp;<span ng-bind="item.ETA"></span></p>
+                    <p>Origin&nbsp;:&nbsp;<span ng-bind="item.Origin"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Destination&nbsp;:&nbsp;<span ng-bind="item.Destination"></span></p>
+                    <p>Vessel&nbsp;:&nbsp;<span ng-bind="item.Vessel"></span></p>
+                    <p>Pcs&nbsp;:&nbsp;<span ng-bind="item.Pcs"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weight&nbsp;:&nbsp;<span ng-bind="item.Weight"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Volume&nbsp;:&nbsp;<span ng-bind="item.Volume"></span></p>
+                </ion-item>
+            </div>
+        </div>
+	</ion-content>
+</ion-view>

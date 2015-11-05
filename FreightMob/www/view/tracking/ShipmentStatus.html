@@ -5,18 +5,66 @@
                 <button class="button button-icon button-clear ion-navicon" ng-click="returnMain()"></button>
             </span>
         </div>
-        <div class="item-input-inset" style="width:90%;">
-            <label class="item-input-wrapper">
-                <i class="icon ion-ios-search placeholder-icon"></i>
-                <input id="txt-PortName" type="search" placeholder="Search Port Name" style="width:100%;" ng-model="Rcsv1.PortName">
-            </label>
+        <div class="title">
+            Shipment Tracking
         </div>
     </div>
     <ion-content class="has-header">
-        <ion-list class="animate-ripple">
-            <ion-item nav-clear menu-close class="item ink" ng-repeat="Rcsv1 in Rcsv1s" ng-click="GoToDetail(Rcsv1)">
-                <h2><i class="iconfont icon-address"></i>&nbsp;&nbsp;<span ng-bind="Rcsv1.PortName"></span></h2>
-            </ion-item>
+        <ion-list class="animate-blinds">
+            <div class="card">
+                <div class="item">
+                    <label class="item-input pull-left" style="width:80%;">
+                        <span class="input-label">Container No</span>
+                        <input type="text" style="border-bottom:1px solid #808080;" ng-model="Tracking.ContainerNo">
+                    </label>
+                    <button class="button button-clear icon ion-android-search" ng-click="GoToDetail('ContainerNo')"></button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="item">
+                    <label class="item-input pull-left" style="width:80%;">
+                        <span class="input-label">Job No</span>
+                        <input type="text" style="border-bottom:1px solid #808080;" ng-model="Tracking.JobNo">
+                    </label>
+                    <button class="button button-clear icon ion-android-search" ng-click="GoToDetail('JobNo')"></button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="item">
+                    <label class="item-input pull-left" style="width:80%;">
+                        <span class="input-label">BL No</span>
+                        <input type="text" style="border-bottom:1px solid #808080;" ng-model="Tracking.BLNo">
+                    </label>
+                    <button class="button button-clear icon ion-android-search" ng-click="GoToDetail('BLNo')"></button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="item">
+                    <label class="item-input pull-left" style="width:80%;">
+                        <span class="input-label">AWB No</span>
+                        <input type="text" style="border-bottom:1px solid #808080;" ng-model="Tracking.AWBNo">
+                    </label>
+                    <button class="button button-clear icon ion-android-search" ng-click="GoToDetail('AWBNo')"></button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="item">
+                    <label class="item-input pull-left" style="width:80%;">
+                        <span class="input-label">Order No</span>
+                        <input type="text" style="border-bottom:1px solid #808080;" ng-model="Tracking.OrderNo">
+                    </label>
+                    <button class="button button-clear icon ion-android-search" ng-click="GoToDetail('OrderNo')"></button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="item">
+                    <label class="item-input pull-left" style="width:80%;">
+                        <span class="input-label">Reference No</span>
+                        <input type="text" style="border-bottom:1px solid #808080;" ng-model="Tracking.ReferenceNo">
+                    </label>
+                    <button class="button button-clear icon ion-android-search" ng-click="GoToDetail('ReferenceNo')"></button>
+                </div>
+            </div>
         </ion-list>
     </ion-content>
 </ion-view>

@@ -15,7 +15,7 @@ var appControllers = angular.module('MobileAPP.controllers', [
     'MobileAPP.services'
 ]);
 
-appControllers.controller('LoadingCtrl',
+appControllers.controller('LoadingCtl',
         ['$state', '$timeout',
         function ($state, $timeout) {
             $timeout(function () {
@@ -23,7 +23,7 @@ appControllers.controller('LoadingCtrl',
             }, 2500);
         }]);
 
-appControllers.controller('LoginCtrl',
+appControllers.controller('LoginCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', '$ionicLoading', 'ionicMaterialInk', 'ionicMaterialMotion', '$cordovaToast', '$cordovaAppVersion', 'JsonServiceClient', 
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, $ionicLoading, ionicMaterialInk, ionicMaterialMotion, $cordovaToast, $cordovaAppVersion, JsonServiceClient) {
             $scope.logininfo = {};
@@ -139,7 +139,7 @@ appControllers.controller('LoginCtrl',
             }, 0);
         }]);
 
-appControllers.controller('SettingCtrl',
+appControllers.controller('SettingCtl',
         ['$scope', '$state', '$timeout', '$ionicLoading', '$ionicPopup', '$cordovaToast', '$cordovaFile',
         function ($scope, $state, $timeout, $ionicLoading, $ionicPopup, $cordovaToast, $cordovaFile) {
             $scope.Setting = {};
@@ -194,7 +194,7 @@ appControllers.controller('SettingCtrl',
             };
         }]);
 
-appControllers.controller('UpdateCtrl',
+appControllers.controller('UpdateCtl',
         ['$scope', '$stateParams', '$state', '$timeout', '$ionicLoading', '$cordovaToast', '$cordovaFile', '$cordovaFileTransfer', '$cordovaFileOpener2',
         function ($scope, $stateParams, $state, $timeout, $ionicLoading, $cordovaToast, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2) {
             $scope.strVersion = $stateParams.Version;
@@ -248,7 +248,7 @@ appControllers.controller('UpdateCtrl',
             };
         }]);
 
-appControllers.controller('MainCtrl',
+appControllers.controller('MainCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', '$cordovaBarcodeScanner', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, $cordovaBarcodeScanner, JsonServiceClient) {
             $scope.GoToRcbp = function () {
@@ -289,7 +289,7 @@ appControllers.controller('MainCtrl',
             */
         }]);
 
-appControllers.controller('ContactsCtrl',
+appControllers.controller('ContactsCtl',
         ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaDialogs', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $ionicLoading, $cordovaDialogs, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.Rcbp = {};
@@ -327,7 +327,7 @@ appControllers.controller('ContactsCtrl',
             getRcbp1(null);
         }]);
 
-appControllers.controller('ContactsDetailCtrl',
+appControllers.controller('ContactsDetailCtl',
         ['$scope', '$stateParams', '$state', '$http', '$timeout', '$ionicHistory', '$ionicLoading', '$ionicPopup', '$ionicModal', 'JsonServiceClient',
         function ($scope, $stateParams, $state, $http, $timeout, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, JsonServiceClient) {
             $scope.rcbpDetail = {};
@@ -390,7 +390,7 @@ appControllers.controller('ContactsDetailCtrl',
             };
         }]);
 
-appControllers.controller('ContactsDetailEditCtrl',
+appControllers.controller('ContactsDetailEditCtl',
         ['$scope', '$stateParams', '$state', '$http', '$timeout', '$ionicLoading', '$ionicPopup', 'JsonServiceClient',
         function ($scope, $stateParams, $state, $http, $timeout, $ionicLoading, $ionicPopup, JsonServiceClient) {
             $scope.returnDetail = function () {
@@ -535,7 +535,7 @@ appControllers.controller('VesselScheduleCtl',
             }, 0);
         }]);
 
-appControllers.controller('VesselScheduleDetailCtrl',
+appControllers.controller('VesselScheduleDetailCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.Rcsv1Detail = {};
@@ -574,72 +574,38 @@ appControllers.controller('VesselScheduleDetailCtrl',
 appControllers.controller('ShipmentStatusCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.Tracking = {};
             $scope.returnMain = function () {
                 $state.go('main', {}, { reload: true });
             };
-            $scope.Rcsv1s = [
-                { PortCode: 'All', PortName: 'ALL' },
-                { PortCode: 'DEAAH', PortName: 'AACHEN' },
-                { PortCode: 'DKAAL', PortName: 'AALBORG' },
-                { PortCode: 'JPABA', PortName: 'ABASHIRI, HOKKAIDO' },
-                { PortCode: 'PGABW', PortName: 'ABAU' },
-                { PortCode: 'DEABH', PortName: 'ABBEHAUSEN' },
-                { PortCode: 'DEABF', PortName: 'ABBENFLETH' },
-                { PortCode: 'FRABB', PortName: 'ABBEVILLE' },
-                { PortCode: 'YEEAB', PortName: 'ABBSE' },
-                { PortCode: 'SAAAK', PortName: 'ABU AL KHOOSH' },
-                { PortCode: 'AEAUH', PortName: 'ABU DHABI' },
-                { PortCode: 'FIAHV', PortName: 'AHVENANMAA MUUT' },
-                { PortCode: 'AEAJM', PortName: 'AJMAN' },
-                { PortCode: 'GAAKE', PortName: 'AKIENI' },
-                { PortCode: 'SAAHA', PortName: 'AL HADA' },
-                { PortCode: 'JMALP', PortName: 'ALLIGATOR POND' },
-                { PortCode: 'DEAMR', PortName: 'AMRUN I.' },
-                { PortCode: 'PFAAA', PortName: 'ANAAB' },
-                { PortCode: 'DZAAE', PortName: 'ANNABA (FORMERLY BONE)' },
-                { PortCode: 'USAAF', PortName: 'APALACHICOLA, FL' },
-                { PortCode: 'DEAPE', PortName: 'APEN' },
-                { PortCode: 'BRAAI', PortName: 'ARRAIAS' },
-                { PortCode: 'AAAAA', PortName: 'ASASASAS' },
-                { PortCode: 'DEASS', PortName: 'ASSEL' },
-                { PortCode: 'SABDN', PortName: 'BADANA' },
-                { PortCode: 'THBKK', PortName: 'BANGKOK' },
-                { PortCode: 'GABGB', PortName: 'BOOUE' },
-                { PortCode: 'AOCAB', PortName: 'CABINDA' },
-                { PortCode: 'ECCUE', PortName: 'CUENCA' },
-                { PortCode: 'AUDAA', PortName: 'DARRA, QL' },
-                { PortCode: 'AEDAS', PortName: 'DAS ISLAND' },
-                { PortCode: 'BDDAC', PortName: 'DHAKA' },
-                { PortCode: 'AEDXB', PortName: 'DUBAI' },
-                { PortCode: 'AEFAT', PortName: 'FATEH TERMINAL' },
-                { PortCode: 'AEFJR', PortName: 'FUJAIRAH' },
-                { PortCode: 'SGSIN', PortName: 'GGGGG' },
-                { PortCode: 'SEHAD', PortName: 'HALMSTAD' },
-                { PortCode: 'HKHKG', PortName: 'HONG KONG' },
-                { PortCode: 'IDJKT', PortName: 'JAKARTA' },
-                { PortCode: 'AEJEA', PortName: 'JEBEL ALI' },
-                { PortCode: 'AEJED', PortName: 'JEBEL DHANNA' },
-                { PortCode: 'TWKEL', PortName: 'KEELUNG' },
-                { PortCode: 'AEKLF', PortName: 'KHOR AL FAKKAN' },
-                { PortCode: 'BDKHL', PortName: 'KHULNA' },
-                { PortCode: 'HKKWN', PortName: 'KOWLOON' },
-                { PortCode: 'AUKAH', PortName: 'MELBOURNE-CITY HELIPORT, VI' },
-                { PortCode: 'ADZZZ', PortName: 'O P ANDORRA' },
-                { PortCode: 'VAZZZ', PortName: 'O P VATICAN CITYSTATE(HOLYSEE)' },
-                { PortCode: 'MYPEN', PortName: 'PENANG' },
-                { PortCode: 'AEKHL', PortName: 'PORT KHALID' },
-                { PortCode: 'CVRAI', PortName: 'PRAIA' },
-                { PortCode: 'IDBAP', PortName: 'PULAU BATAM' },
-                { PortCode: 'PGRAA', PortName: 'RAKANDA' },
-                { PortCode: 'RERUN', PortName: 'REUNION ISL/POINTE DES GALETS' },
-                { PortCode: 'ANSAB', PortName: 'SABA IS' },
-                { PortCode: 'USSSM', PortName: 'SAULT STE MARIE, MIWWW' },
-                { PortCode: 'CNSHA', PortName: 'SHANGHAI' },
-                { PortCode: 'VCSVD', PortName: 'ST VINCENT-ARNOS VALE' },
-                { PortCode: 'FOFAE', PortName: 'THORSHAVN-VAGAR APT' },
-                { PortCode: 'FIVAA', PortName: 'VAASA/VASA' },
-                { PortCode: 'SAAWI', PortName: 'WAISUMAH' },
-                { PortCode: 'DEAGE', PortName: 'WANGEROOGE' }
+            $scope.GoToDetail = function (FilterName) {
+                var FilterValue = '';
+                if (FilterName === 'ContainerNo') { FilterValue = $scope.Tracking.ContainerNo }
+                else if (FilterName === 'JobNo') { FilterValue = $scope.Tracking.JobNo }
+                else if (FilterName === 'BLNo') { FilterValue = $scope.Tracking.BLNo }
+                else if (FilterName === 'AWBNo') { FilterValue = $scope.Tracking.AWBNo }
+                else if (FilterName === 'OrderNo') { FilterValue = $scope.Tracking.OrderNo }
+                else if (FilterName === 'ReferenceNo') { FilterValue = $scope.Tracking.ReferenceNo }
+                $state.go('shipmentStatusDetail', { 'FilterName': FilterName, 'FilterValue': FilterValue }, { reload: true });
+            };
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+                ionicMaterialMotion.blinds();
+            }, 0);
+        }]);
+
+appControllers.controller('ShipmentStatusDetailCtl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.Detail = {};
+            $scope.Detail.FilterName = $stateParams.FilterName;
+            $scope.Detail.FilterValue = $stateParams.FilterValue;
+            $scope.returnList = function () {
+                $state.go('shipmentStatus', {}, { reload: true });
+            };
+            $scope.items= [
+                { JobNo: 'SESIN0905182-00', BLNo: 'SESIN0905182-00', RefNo: 'RN0907033', ETD: '04/11/2015', ETA: '07/11/2015', Origin: 'XMN', Destination: 'SIN', Vessel: 'S A ORANJE 123', Pcs: '100', Weight: '1000', Volume: '1000', Status: 'USE' },
+                { JobNo: 'SESIN1511137-02', BLNo: 'SESIN1511137-02', RefNo: 'RN1511051', ETD: '04/11/2015', ETA: '07/11/2015', Origin: 'SIN', Destination: 'XMN', Vessel: 'KADIMA', Pcs: '500', Weight: '50,000', Volume: '50,000', Status: 'USE' }
             ];
             $timeout(function () {
                 ionicMaterialInk.displayEffect();

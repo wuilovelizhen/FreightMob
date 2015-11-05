@@ -1,7 +1,5 @@
 @echo on
 
-call cordova prepare
-
-call cordova compile --release android
+call cordova build --release android
 
 pause 

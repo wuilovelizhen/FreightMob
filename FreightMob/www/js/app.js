@@ -139,46 +139,46 @@ app.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider',
                 url: '/loading',
                 cache: 'false',
                 templateUrl: 'view/loading.html',
-                controller: 'LoadingCtrl'
+                controller: 'LoadingCtl'
             })
             .state('login', {
                 url: '/login/:CheckUpdate',
                 cache: 'false',
                 templateUrl: 'view/login.html',
-                controller: 'LoginCtrl'
+                controller: 'LoginCtl'
             })
             .state('setting', {
                 url: '/setting',
                 cache: 'false',
                 templateUrl: 'view/setting.html',
-                controller: 'SettingCtrl'
+                controller: 'SettingCtl'
             })
             .state('update', {
                 url: '/update/:Version',
                 cache: 'false',
                 templateUrl: 'view/update.html',
-                controller: 'UpdateCtrl'
+                controller: 'UpdateCtl'
             })
             .state('main', {
                 url: "/main",
                 cache: 'false',
                 templateUrl: "view/main.html",
-                controller: 'MainCtrl'
+                controller: 'MainCtl'
             })
             .state('contacts', {
                 url: '/contacts',
                 templateUrl: 'view/crm/Contacts.html',
-                controller: 'ContactsCtrl'
+                controller: 'ContactsCtl'
             })
             .state('contactsDetail', {
                 url: '/contacts/detail/:TrxNo',
                 templateUrl: 'view/crm/Contacts-detail.html',
-                controller: 'ContactsDetailCtrl'
+                controller: 'ContactsDetailCtl'
             })
             .state('contactsDetailEdit', {
                 url: '/contacts/detail/Edit/:TrxNo',
                 templateUrl: 'view/crm/Contacts-detail-Edit.html',
-                controller: 'ContactsDetailEditCtrl'
+                controller: 'ContactsDetailEditCtl'
             })
             .state('paymentApproval', {
                 url: '/paymentApproval',
@@ -196,13 +196,19 @@ app.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider',
                 url: '/vesselSchedule/detail/:PortCode',
                 cache: 'false',
                 templateUrl: 'view/tracking/VesselSchedule-detail.html',
-                controller: 'VesselScheduleDetailCtrl'
+                controller: 'VesselScheduleDetailCtl'
             })
             .state('shipmentStatus', {
                 url: '/shipmentStatus',
                 cache: 'false',
                 templateUrl: 'view/tracking/ShipmentStatus.html',
                 controller: 'ShipmentStatusCtl'
+            })
+            .state('shipmentStatusDetail', {
+                url: '/shipmentStatus/detail/:FilterName/:FilterValue',
+                cache: 'false',
+                templateUrl: 'view/tracking/ShipmentStatus-detail.html',
+                controller: 'ShipmentStatusDetailCtl'
             });
         $urlRouterProvider.otherwise('/login/N');
     }]);

@@ -180,6 +180,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider',
                 templateUrl: "view/main.html",
                 controller: 'MainCtl'
             })
+            .state('salesmanActivity', {
+                url: '/salesmanActivity',
+                templateUrl: 'view/crm/SalesmanActivity.html',
+                controller: 'SalesmanActivityCtl'
+            })
             .state('contacts', {
                 url: '/contacts',
                 templateUrl: 'view/crm/Contacts.html',

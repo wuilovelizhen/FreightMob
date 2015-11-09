@@ -1,0 +1,22 @@
+﻿<ion-view title="">
+    <div class="bar bar-header bar-calm-900">
+        <div class="buttons buttons-left header-item">
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon" ng-click="returnMain()"></button>
+            </span>
+        </div>
+        <div class="title">Reminder</div>
+    </div>
+    <ion-content class="has-header">
+        <ion-list>
+            <ion-item ng-repeat="item in items">
+                <h2><span ng-bind="item.Subject"></span></h2>
+                <p><i class="iconfont icon-date"></i>&nbsp;&nbsp;<span ng-bind="item.DueDate"></span>&nbsp;&nbsp;<span ng-bind="item.DueTime"></span></p>
+                <p><span ng-bind="item.Message"></span></p>
+            </ion-item>
+        </ion-list>          
+</ion-content>
+    <ion-footer-bar class="button-bar" style="height:7%;">
+        <button class="button button-flat button-positive ink" style="max-width:49%;" ng-click="returnMain()">Back</button>
+    </ion-footer-bar>
+</ion-view>

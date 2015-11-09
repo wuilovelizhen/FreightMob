@@ -204,6 +204,18 @@ app.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider',
                 templateUrl: 'view/tracking/ShipmentStatus.html',
                 controller: 'ShipmentStatusCtl'
             })
+           .state('Memo', {
+               url: '/Memo',
+                cache: 'false',
+                templateUrl: 'view/memo/Memo.html',
+                controller: 'MemoCtl'
+           })
+          .state('Reminder', {
+              url: '/Reminder',
+                cache: 'false',
+                templateUrl: 'view/reminder/Reminder.html',
+                controller: 'reminderCtl'
+            })
             .state('shipmentStatusDetail', {
                 url: '/shipmentStatus/detail/:FilterName/:FilterValue',
                 cache: 'false',

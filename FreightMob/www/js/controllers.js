@@ -263,6 +263,12 @@ appControllers.controller('MainCtl',
             $scope.GoToSS = function () {
                 $state.go('shipmentStatus', {}, { reload: true });
             };
+            $scope.GoToMemo = function () {
+                $state.go('Memo', {}, { reload: true });
+            };
+            $scope.GoToReminder = function () {
+                $state.go('Reminder', {}, { reload: true });
+            };
             // Set Motion
             $timeout(function () {
                 ionicMaterialMotion.slideUp({
@@ -277,7 +283,7 @@ appControllers.controller('MainCtl',
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
                 ionicMaterialMotion.ripple();
-            }, 0);
+            }, 0);           
             /*
             $scope.scanBarcode = function () {
                 $cordovaBarcodeScanner.scan().then(function (imageData) {
@@ -611,4 +617,30 @@ appControllers.controller('ShipmentStatusDetailCtl',
                 ionicMaterialInk.displayEffect();
                 ionicMaterialMotion.ripple();
             }, 0);
+        }]);
+
+appControllers.controller('MemoCtl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.Memo = {};
+            //$scope.Memo.UserId = $stateParams.UserID;
+            $scope.Memo.MemoInfo = 'Hello this is sysmagic mobile support';
+            $scope.returnMain = function () {
+                $state.go('main', {}, { reload: true });
+            };
+           
+        }]);
+
+appControllers.controller('reminderCtl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.items = {};
+            //$scope.items.UserId = $stateParams.UserID;
+            $scope.returnMain = function () {
+                $state.go('main', {}, { reload: true });
+            };
+            $scope.items = [
+                { id: 1, Subject: 'Payment Voucher need Approve', Message: 'Please help to approve the ref no : PV15031841', CreateBy: 'S', UserID: 'S', DueDate: 'Nov 14,2015', DueTime: '11:20' },
+                { id: 2, Subject: 'Email to Henry', Message: 'Need email to henry for the new request for the mobile at the monring.', CreateBy: 'S', UserID: 'S', DueDate: 'Nov 16,2015', DueTime: '09:20' }
+            ];
         }]);

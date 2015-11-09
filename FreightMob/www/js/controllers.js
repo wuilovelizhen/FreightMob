@@ -281,6 +281,12 @@ appControllers.controller('MainCtl',
             $scope.GoToAWB = function () {
                 $state.go('awb', {}, { reload: true });
             };
+            $scope.GoToMemo = function () {
+                $state.go('memo', {}, { reload: true });
+            };
+            $scope.GoToReminder = function () {
+                $state.go('reminder', {}, { reload: true });
+            };
             // Set Motion
             //$timeout(function () {
             //    ionicMaterialMotion.slideup({
@@ -311,7 +317,7 @@ appControllers.controller('SalesmanActivityCtl',
         ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaDialogs', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $ionicLoading, $cordovaDialogs, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             // initial echarts
             var myChart = echarts.init(document.getElementById('echartsPie'));
@@ -375,7 +381,7 @@ appControllers.controller('ContactsCtl',
             $scope.Rcbp = {};
             $scope.Rcbp.BusinessPartyName = "";
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.GoToDetail = function (Rcbp1) {
                 $state.go('contactsDetail', { 'TrxNo': Rcbp1.TrxNo }, { reload: true });
@@ -481,16 +487,8 @@ appControllers.controller('ContactsDetailEditCtl',
 appControllers.controller('PaymentApprovalCtl',
         ['$scope', '$http', '$timeout', '$state', '$ionicHistory', '$ionicPopup', 'ionicMaterialInk', 'ionicMaterialMotion',
         function ($scope, $http, $timeout, $state, $ionicHistory, $ionicPopup, ionicMaterialInk, ionicMaterialMotion) {
-            $scope.returnList = function () {
-                if ($ionicHistory.backView()) {
-                    $ionicHistory.goBack();
-                }
-                else {
-                    $state.go('main', {}, {});
-                }
-            };
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.showApproval = function () {
                 var alertPopup = $ionicPopup.alert({
@@ -540,7 +538,7 @@ appControllers.controller('VesselScheduleCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.GoToDetail = function (Rcvs1) {
                 $state.go('vesselScheduleDetail', { 'PortCode' : Rcvs1.PortCode }, { reload: true });
@@ -656,7 +654,7 @@ appControllers.controller('ShipmentStatusCtl',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.Tracking = {};
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.GoToDetail = function (FilterName) {
                 var FilterValue = '';
@@ -697,7 +695,7 @@ appControllers.controller('InvoiceCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$ionicLoading', '$timeout', '$cordovaFile', '$cordovaFileTransfer', '$cordovaFileOpener2', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $ionicLoading, $timeout, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.items = [
                 { InvoiceNo: 'SESIN0905182-00', InvoiceDate: '04/11/2015', CustomerName: 'S A ORANJE 123', Amt: '100' },
@@ -761,7 +759,7 @@ appControllers.controller('BlCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$ionicLoading', '$timeout', '$cordovaFile', '$cordovaFileTransfer', '$cordovaFileOpener2', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $ionicLoading, $timeout, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.items = [
                 { InvoiceNo: 'SESIN0905182-00', InvoiceDate: '04/11/2015', CustomerName: 'S A ORANJE 123', Amt: '100' },
@@ -825,7 +823,7 @@ appControllers.controller('AwbCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$ionicLoading', '$timeout', '$cordovaFile', '$cordovaFileTransfer', '$cordovaFileOpener2', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $ionicLoading, $timeout, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.items = [
                 { InvoiceNo: 'SESIN0905182-00', InvoiceDate: '04/11/2015', CustomerName: 'S A ORANJE 123', Amt: '100' },
@@ -883,4 +881,27 @@ appControllers.controller('AwbCtl',
                 ionicMaterialInk.displayEffect();
                 ionicMaterialMotion.ripple();
             }, 0);
+        }]);
+
+appControllers.controller('MemoCtl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.returnMain = function () {
+                $state.go('main', {}, {});
+            };
+            $scope.Memo = {
+                MemoInfo : 'Hello this is sysmagic mobile support'
+            };
+        }]);
+
+appControllers.controller('ReminderCtl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.returnMain = function () {
+                $state.go('main', {}, {});
+            };
+            $scope.items = [
+                { id: 1, Subject: 'Payment Voucher need Approve', Message: 'Please help to approve the ref no : PV15031841', CreateBy: 'S', UserID: 'S', DueDate: 'Nov 14,2015', DueTime: '11:20' },
+                { id: 2, Subject: 'Email to Henry', Message: 'Need email to henry for the new request for the mobile at the monring.', CreateBy: 'S', UserID: 'S', DueDate: 'Nov 16,2015', DueTime: '09:20' }
+            ];
         }]);

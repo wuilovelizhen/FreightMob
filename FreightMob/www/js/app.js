@@ -247,6 +247,18 @@ app.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider',
                 cache: 'false',
                 templateUrl: 'view/tracking/AWB.html',
                 controller: 'AwbCtl'
+            })
+            .state('memo', {
+                url: '/Memo',
+                cache: 'false',
+                templateUrl: 'view/productivity/Memo.html',
+                controller: 'MemoCtl'
+            })
+            .state('reminder', {
+                url: '/Reminder',
+                cache: 'false',
+                templateUrl: 'view/productivity/Reminder.html',
+                controller: 'ReminderCtl'
             });
         $urlRouterProvider.otherwise('/login/N');
     }]);

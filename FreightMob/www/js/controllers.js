@@ -40,7 +40,7 @@ appControllers.controller('LoginCtl',
                 }
             });
             if ($stateParams.CheckUpdate === 'Y') {
-                var url = strWebServiceURL + strBaseUrl + '/update.json';
+                var url = strWebSiteURL + '/update.json';
                 $http.get(url)
                 .success(function (res) {
                         var serverAppVersion = res.version;
@@ -161,7 +161,13 @@ appControllers.controller('SettingCtl',
                         strBaseUrl = "/" + strBaseUrl;
                     }
                 } else { $scope.Setting.BaseUrl = strBaseUrl }
-                var data = 'BaseUrl=' + $scope.Setting.BaseUrl + '##WebServiceURL=' + $scope.Setting.WebServiceURL;
+                if ($scope.Setting.WebSiteUrl.length > 0) {
+                    strWebSiteURL = $scope.Setting.WebSiteUrl;
+                    if (strWebSiteURL.length > 0) {
+                        strWebSiteURL = "http://" + strWebSiteURL;
+                    }
+                } else { $scope.Setting.WebSiteUrl = strWebSiteURL }
+                var data = 'BaseUrl=' + $scope.Setting.BaseUrl + '##WebServiceURL=' + $scope.Setting.WebServiceURL + '##WebSiteURL=' + strWebSiteURL;
                 var path = cordova.file.externalRootDirectory;
                 var directory = "TmsApp";
                 var file = directory + "/Config.txt";
@@ -205,15 +211,15 @@ appControllers.controller('UpdateCtl',
                 $ionicLoading.show({
                     template: "Download  0%"
                 });
-                var url = strWebServiceURL + strBaseUrl + "/TMS.apk";
+                var url = strWebSiteURL + "/FreightApp.apk";
                 var blnError = false;
-                $cordovaFile.checkFile(cordova.file.externalRootDirectory, "TMS.apk")
+                $cordovaFile.checkFile(cordova.file.externalRootDirectory, "FreightApp.apk")
                 .then(function (success) {
                     //
                 }, function (error) {
                     blnError = true;
                 });
-                var targetPath = cordova.file.externalRootDirectory + "TMS.apk";
+                var targetPath = cordova.file.externalRootDirectory + "FreightApp.apk";
                 var trustHosts = true;
                 var options = {};
                 if (!blnError) {
@@ -251,6 +257,9 @@ appControllers.controller('UpdateCtl',
 appControllers.controller('MainCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', '$cordovaBarcodeScanner', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, $cordovaBarcodeScanner, JsonServiceClient) {
+            $scope.GoToSA = function () {
+                $state.go('salesmanActivity', {}, { reload: true });
+            };
             $scope.GoToRcbp = function () {
                 $state.go('contacts', {}, { reload: true });
             };
@@ -259,31 +268,40 @@ appControllers.controller('MainCtl',
             };
             $scope.GoToVS = function () {
                 $state.go('vesselSchedule', {}, { reload: true });
-            };
+            }; 
             $scope.GoToSS = function () {
                 $state.go('shipmentStatus', {}, { reload: true });
             };
+            $scope.GoToInv = function () {
+                $state.go('invoice', {}, { reload: true });
+            };
+            $scope.GoToBL= function () {
+                $state.go('bl', {}, { reload: true });
+            };
+            $scope.GoToAWB = function () {
+                $state.go('awb', {}, { reload: true });
+            };
             $scope.GoToMemo = function () {
-                $state.go('Memo', {}, { reload: true });
+                $state.go('memo', {}, { reload: true });
             };
             $scope.GoToReminder = function () {
-                $state.go('Reminder', {}, { reload: true });
+                $state.go('reminder', {}, { reload: true });
             };
             // Set Motion
-            $timeout(function () {
-                ionicMaterialMotion.slideUp({
-                    selector: '.slide-up'
-                });
-            }, 300);
-            $timeout(function () {
-                ionicMaterialMotion.fadeSlideInRight({
-                    startVelocity: 3000
-                });
-            }, 700);
+            //$timeout(function () {
+            //    ionicMaterialMotion.slideup({
+            //        selector: '.slide-up'
+            //    });
+            //}, 300);
+            //$timeout(function () {
+            //    ionicMaterialMotion.fadeSlideInRight({
+            //        startVelocity: 3000
+            //    });
+            //}, 700);
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
                 ionicMaterialMotion.ripple();
-            }, 0);           
+            }, 0);
             /*
             $scope.scanBarcode = function () {
                 $cordovaBarcodeScanner.scan().then(function (imageData) {
@@ -295,13 +313,75 @@ appControllers.controller('MainCtl',
             */
         }]);
 
+appControllers.controller('SalesmanActivityCtl',
+        ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaDialogs', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $ionicLoading, $cordovaDialogs, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.returnMain = function () {
+                $state.go('main', {}, {});
+            };
+            // initial echarts
+            var myChart = echarts.init(document.getElementById('echartsPie'));
+            var option = {
+                title: {
+                    text: 'Salesman',
+                    subtext: 'Access Source',
+                    x: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data: ['DA', 'EDM', 'ADs', 'VedioADs', 'SE']
+                },
+                toolbox: {
+                    show: false,
+                    feature: {
+                        magicType: {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'left',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                calculable: true,
+                series: [
+                    {
+                        name: 'Access Source',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [
+                            { value: 335, name: 'DA' },
+                            { value: 310, name: 'EDM' },
+                            { value: 234, name: 'ADs' },
+                            { value: 135, name: 'VedioADs' },
+                            { value: 1548, name: 'SE' }
+                        ]
+                    }
+                ]
+            };
+            myChart.setOption(option);
+        }]);
+
 appControllers.controller('ContactsCtl',
         ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$ionicLoading', '$cordovaDialogs', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $ionicLoading, $cordovaDialogs, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.Rcbp = {};
             $scope.Rcbp.BusinessPartyName = "";
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.GoToDetail = function (Rcbp1) {
                 $state.go('contactsDetail', { 'TrxNo': Rcbp1.TrxNo }, { reload: true });
@@ -407,16 +487,8 @@ appControllers.controller('ContactsDetailEditCtl',
 appControllers.controller('PaymentApprovalCtl',
         ['$scope', '$http', '$timeout', '$state', '$ionicHistory', '$ionicPopup', 'ionicMaterialInk', 'ionicMaterialMotion',
         function ($scope, $http, $timeout, $state, $ionicHistory, $ionicPopup, ionicMaterialInk, ionicMaterialMotion) {
-            $scope.returnList = function () {
-                if ($ionicHistory.backView()) {
-                    $ionicHistory.goBack();
-                }
-                else {
-                    $state.go('main', {}, {});
-                }
-            };
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.showApproval = function () {
                 var alertPopup = $ionicPopup.alert({
@@ -466,7 +538,7 @@ appControllers.controller('VesselScheduleCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.GoToDetail = function (Rcvs1) {
                 $state.go('vesselScheduleDetail', { 'PortCode' : Rcvs1.PortCode }, { reload: true });
@@ -582,7 +654,7 @@ appControllers.controller('ShipmentStatusCtl',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
             $scope.Tracking = {};
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.GoToDetail = function (FilterName) {
                 var FilterValue = '';
@@ -619,25 +691,214 @@ appControllers.controller('ShipmentStatusDetailCtl',
             }, 0);
         }]);
 
+appControllers.controller('InvoiceCtl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$ionicLoading', '$timeout', '$cordovaFile', '$cordovaFileTransfer', '$cordovaFileOpener2', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $ionicLoading, $timeout, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.returnMain = function () {
+                $state.go('main', {}, {});
+            };
+            $scope.items = [
+                { InvoiceNo: 'SESIN0905182-00', InvoiceDate: '04/11/2015', CustomerName: 'S A ORANJE 123', Amt: '100' },
+                { InvoiceNo: 'SESIN1511137-02', InvoiceDate: '04/11/2015', CustomerName: 'KADIMA', Amt: '500' }
+            ];
+            $scope.download = function () {
+                $ionicLoading.show({
+                    template: "Download  0%"
+                });
+                var url = strWebServiceURL + "/mobileapp/INVOICE.pdf";
+                var blnError = false;
+                if (window.cordova) {
+                    $cordovaFile.checkFile(cordova.file.externalRootDirectory, "INVOICE.pdf")
+                    .then(function (success) {
+                        //
+                    }, function (error) {
+                        blnError = true;
+                    });
+                    var targetPath = cordova.file.externalRootDirectory + "INVOICE.pdf";
+                    var trustHosts = true;
+                    var options = {};
+                    if (!blnError) {
+                        $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+                            $ionicLoading.hide();
+                            $cordovaFileOpener2.open(targetPath, 'application/pdf'
+                            ).then(function () {
+                                // success
+                            }, function (err) {
+                                // error
+                            });
+                        }, function (err) {
+                            $cordovaToast.showShortCenter('Download faild.');
+                            $ionicLoading.hide();
+                        }, function (progress) {
+                            $timeout(function () {
+                                var downloadProgress = (progress.loaded / progress.total) * 100;
+                                $ionicLoading.show({
+                                    template: "Download  " + Math.floor(downloadProgress) + "%"
+                                });
+                                if (downloadProgress > 99) {
+                                    $ionicLoading.hide();
+                                }
+                            })
+                        });
+                    } else {
+                        $ionicLoading.hide();
+                        $cordovaToast.showShortCenter('Download PDF file faild.');
+                    }
+                } else {
+                    $ionicLoading.hide();
+                    window.open(url);               
+                }                
+            };
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+                ionicMaterialMotion.ripple();
+            }, 0);
+        }]);
+
+appControllers.controller('BlCtl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$ionicLoading', '$timeout', '$cordovaFile', '$cordovaFileTransfer', '$cordovaFileOpener2', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $ionicLoading, $timeout, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.returnMain = function () {
+                $state.go('main', {}, {});
+            };
+            $scope.items = [
+                { InvoiceNo: 'SESIN0905182-00', InvoiceDate: '04/11/2015', CustomerName: 'S A ORANJE 123', Amt: '100' },
+                { InvoiceNo: 'SESIN1511137-02', InvoiceDate: '04/11/2015', CustomerName: 'KADIMA', Amt: '500' }
+            ];
+            $scope.download = function () {
+                $ionicLoading.show({
+                    template: "Download  0%"
+                });
+                var url = strWebServiceURL + "/mobileapp/INVOICE.pdf";
+                var blnError = false;
+                if (window.cordova) {
+                    $cordovaFile.checkFile(cordova.file.externalRootDirectory, "INVOICE.pdf")
+                    .then(function (success) {
+                        //
+                    }, function (error) {
+                        blnError = true;
+                    });
+                    var targetPath = cordova.file.externalRootDirectory + "INVOICE.pdf";
+                    var trustHosts = true;
+                    var options = {};
+                    if (!blnError) {
+                        $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+                            $ionicLoading.hide();
+                            $cordovaFileOpener2.open(targetPath, 'application/pdf'
+                            ).then(function () {
+                                // success
+                            }, function (err) {
+                                // error
+                            });
+                        }, function (err) {
+                            $cordovaToast.showShortCenter('Download faild.');
+                            $ionicLoading.hide();
+                        }, function (progress) {
+                            $timeout(function () {
+                                var downloadProgress = (progress.loaded / progress.total) * 100;
+                                $ionicLoading.show({
+                                    template: "Download  " + Math.floor(downloadProgress) + "%"
+                                });
+                                if (downloadProgress > 99) {
+                                    $ionicLoading.hide();
+                                }
+                            })
+                        });
+                    } else {
+                        $ionicLoading.hide();
+                        $cordovaToast.showShortCenter('Download PDF file faild.');
+                    }
+                } else {
+                    $ionicLoading.hide();
+                    window.open(url);
+                }
+            };
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+                ionicMaterialMotion.ripple();
+            }, 0);
+        }]);
+
+appControllers.controller('AwbCtl',
+        ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$ionicLoading', '$timeout', '$cordovaFile', '$cordovaFileTransfer', '$cordovaFileOpener2', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
+        function ($scope, $http, $state, $stateParams, $ionicPopup, $ionicLoading, $timeout, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
+            $scope.returnMain = function () {
+                $state.go('main', {}, {});
+            };
+            $scope.items = [
+                { InvoiceNo: 'SESIN0905182-00', InvoiceDate: '04/11/2015', CustomerName: 'S A ORANJE 123', Amt: '100' },
+                { InvoiceNo: 'SESIN1511137-02', InvoiceDate: '04/11/2015', CustomerName: 'KADIMA', Amt: '500' }
+            ];
+            $scope.download = function () {
+                $ionicLoading.show({
+                    template: "Download  0%"
+                });
+                var url = strWebServiceURL + "/mobileapp/INVOICE.pdf";
+                var blnError = false;
+                if (window.cordova) {
+                    $cordovaFile.checkFile(cordova.file.externalRootDirectory, "INVOICE.pdf")
+                    .then(function (success) {
+                        //
+                    }, function (error) {
+                        blnError = true;
+                    });
+                    var targetPath = cordova.file.externalRootDirectory + "INVOICE.pdf";
+                    var trustHosts = true;
+                    var options = {};
+                    if (!blnError) {
+                        $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+                            $ionicLoading.hide();
+                            $cordovaFileOpener2.open(targetPath, 'application/pdf'
+                            ).then(function () {
+                                // success
+                            }, function (err) {
+                                // error
+                            });
+                        }, function (err) {
+                            $cordovaToast.showShortCenter('Download faild.');
+                            $ionicLoading.hide();
+                        }, function (progress) {
+                            $timeout(function () {
+                                var downloadProgress = (progress.loaded / progress.total) * 100;
+                                $ionicLoading.show({
+                                    template: "Download  " + Math.floor(downloadProgress) + "%"
+                                });
+                                if (downloadProgress > 99) {
+                                    $ionicLoading.hide();
+                                }
+                            })
+                        });
+                    } else {
+                        $ionicLoading.hide();
+                        $cordovaToast.showShortCenter('Download PDF file faild.');
+                    }
+                } else {
+                    $ionicLoading.hide();
+                    window.open(url);
+                }
+            };
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+                ionicMaterialMotion.ripple();
+            }, 0);
+        }]);
+
 appControllers.controller('MemoCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
-            $scope.Memo = {};
-            //$scope.Memo.UserId = $stateParams.UserID;
-            $scope.Memo.MemoInfo = 'Hello this is sysmagic mobile support';
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
-           
+            $scope.Memo = {
+                MemoInfo : 'Hello this is sysmagic mobile support'
+            };
         }]);
 
-appControllers.controller('reminderCtl',
+appControllers.controller('ReminderCtl',
         ['$scope', '$http', '$state', '$stateParams', '$ionicPopup', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', 'JsonServiceClient',
         function ($scope, $http, $state, $stateParams, $ionicPopup, $timeout, ionicMaterialInk, ionicMaterialMotion, JsonServiceClient) {
-            $scope.items = {};
-            //$scope.items.UserId = $stateParams.UserID;
             $scope.returnMain = function () {
-                $state.go('main', {}, { reload: true });
+                $state.go('main', {}, {});
             };
             $scope.items = [
                 { id: 1, Subject: 'Payment Voucher need Approve', Message: 'Please help to approve the ref no : PV15031841', CreateBy: 'S', UserID: 'S', DueDate: 'Nov 14,2015', DueTime: '11:20' },

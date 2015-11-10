@@ -1,0 +1,22 @@
+﻿<ion-view title="Memo">
+    <div class="bar bar-header bar-calm-900">
+        <div class="buttons buttons-left header-item">
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon" ng-click="returnMain()"></button>
+            </span>
+        </div>
+        <div class="h1 title">Memo</div>
+    </div>
+    <ion-content class="has-header">
+        <div class="list card">
+            <div class="item item-body">
+                <label class="item item-input item-stacked-label">
+                    <textarea name="a" style="width:100%;height:300px;" ng-model="Memo.MemoInfo"></textarea>
+                </label>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="button-bar" style="height:7%;">
+        <button class="button button-flat button-positive ink" style="max-width:100%;" ng-click="returnMain()">Save</button>
+    </ion-footer-bar>
+</ion-view>

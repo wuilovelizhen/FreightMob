@@ -25,9 +25,9 @@ app.run(['$ionicPlatform', '$rootScope', '$state', '$location', '$timeout', '$io
             if (window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 //
-                var data = 'BaseUrl=' + strBaseUrl + '##WebServiceURL=' + strWebServiceURL;
+                var data = 'BaseUrl=' + strBaseUrl + '##WebServiceURL=' + strWebServiceURL + '##WebSiteURL=' + strWebSiteURL;
                 var path = cordova.file.externalRootDirectory;
-                var directory = "TmsApp";
+                var directory = "FreightApp";
                 var file = directory + "/Config.txt";
                 $cordovaFile.createDir(path, directory, false)
                     .then(function (success) {
@@ -39,6 +39,9 @@ app.run(['$ionicPlatform', '$rootScope', '$state', '$location', '$timeout', '$io
                                 }
                                 if (strWebServiceURL.length > 0) {
                                     strWebServiceURL = "http://" + strWebServiceURL;
+                                }
+                                if (strWebSiteURL.length > 0) {
+                                    strWebSiteURL = "http://" + strWebSiteURL;
                                 }
                             }, function (error) {
                                 $cordovaToast.showShortBottom(error);
@@ -58,12 +61,19 @@ app.run(['$ionicPlatform', '$rootScope', '$state', '$location', '$timeout', '$io
                                         if (arWebServiceURL[1].length > 0) {
                                             strWebServiceURL = arWebServiceURL[1];
                                         }
+                                        var arWebSiteURL = arConf[2].split("=");
+                                        if (arWebSiteURL[1].length > 0) {
+                                            strWebSiteURL = arWebSiteURL[1];
+                                        }
                                         //
                                         if (strBaseUrl.length > 0) {
                                             strBaseUrl = "/" + strBaseUrl;
                                         }
                                         if (strWebServiceURL.length > 0) {
                                             strWebServiceURL = "http://" + strWebServiceURL;
+                                        }
+                                        if (strWebSiteURL.length > 0) {
+                                            strWebSiteURL = "http://" + strWebSiteURL;
                                         }
                                     }, function (error) {
                                         $cordovaToast.showShortBottom(error);
@@ -79,6 +89,9 @@ app.run(['$ionicPlatform', '$rootScope', '$state', '$location', '$timeout', '$io
                                         if (strWebServiceURL.length > 0) {
                                             strWebServiceURL = "http://" + strWebServiceURL;
                                         }
+                                        if (strWebSiteURL.length > 0) {
+                                            strWebSiteURL = "http://" + strWebSiteURL;
+                                        }
                                     }, function (error) {
                                         $cordovaToast.showShortBottom(error);
                                     });
@@ -90,6 +103,9 @@ app.run(['$ionicPlatform', '$rootScope', '$state', '$location', '$timeout', '$io
                 }
                 if (strWebServiceURL.length > 0) {
                     strWebServiceURL = "http://" + strWebServiceURL;
+                }
+                if (strWebSiteURL.length > 0) {
+                    strWebSiteURL = "http://" + strWebSiteURL;
                 }
             }
             if (window.StatusBar) {
@@ -115,8 +131,8 @@ app.run(['$ionicPlatform', '$rootScope', '$state', '$location', '$timeout', '$io
                 $state.go('login', { 'CheckUpdate': 'Y' }, { reload: true });
             } else if ($state.includes('update')) {
                 $state.go('login', { 'CheckUpdate': 'N' }, { reload: true });
-            } else if ($state.includes('list')) {
-                $state.go('main', { 'blnForcedReturn': 'Y' }, { reload: true });
+            } else if ($state.includes('contacts' || $state.includes('paymentApproval') || $state.includes('vesselSchedule') || $state.includes('shipmentStatus') || $state.includes('invoice') || $state.includes('bl') || $state.includes('awb'))) {
+                $state.go('main', { }, { });
             } else if ($ionicHistory.backView()) {
                 $ionicHistory.goBack();
             } else {
@@ -161,9 +177,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider',
             })
             .state('main', {
                 url: "/main",
-                cache: 'false',
                 templateUrl: "view/main.html",
                 controller: 'MainCtl'
+            })
+            .state('salesmanActivity', {
+                url: '/salesmanActivity',
+                templateUrl: 'view/crm/SalesmanActivity.html',
+                controller: 'SalesmanActivityCtl'
             })
             .state('contacts', {
                 url: '/contacts',
@@ -221,6 +241,36 @@ app.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider',
                 cache: 'false',
                 templateUrl: 'view/tracking/ShipmentStatus-detail.html',
                 controller: 'ShipmentStatusDetailCtl'
+            })
+            .state('invoice', {
+                url: '/invoice',
+                cache: 'false',
+                templateUrl: 'view/tracking/Invoice.html',
+                controller: 'InvoiceCtl'
+            })
+            .state('bl', {
+                url: '/bl',
+                cache: 'false',
+                templateUrl: 'view/tracking/BL.html',
+                controller: 'BlCtl'
+            })
+            .state('awb', {
+                url: '/awb',
+                cache: 'false',
+                templateUrl: 'view/tracking/AWB.html',
+                controller: 'AwbCtl'
+            })
+            .state('memo', {
+                url: '/Memo',
+                cache: 'false',
+                templateUrl: 'view/productivity/Memo.html',
+                controller: 'MemoCtl'
+            })
+            .state('reminder', {
+                url: '/Reminder',
+                cache: 'false',
+                templateUrl: 'view/productivity/Reminder.html',
+                controller: 'ReminderCtl'
             });
         $urlRouterProvider.otherwise('/login/N');
     }]);
